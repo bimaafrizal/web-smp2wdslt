@@ -68,10 +68,10 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-1 themed-grid-col">#</div>
-                            <div class="col-2 themed-grid-col">User</div>
-                            <div class="col-2 themed-grid-col">Nama Pengguna</div>
-                            <div class="col-2 themed-grid-col">Is Aktif</div>
-                            <div class="col-2 themed-grid-col">Peran</div>
+                            <div class="col-3 themed-grid-col">User</div>
+                            <div class="col-3 themed-grid-col">Nama Pengguna</div>
+                            <div class="col-1 themed-grid-col">Is Aktif</div>
+                            <div class="col-1 themed-grid-col">Peran</div>
                             <div class="col-3 themed-grid-col">AKSI</div>
                         </div>
                         <?php
@@ -80,21 +80,21 @@
                         ?>
                             <div class="row mb-3">
                                 <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
-                                <div class="col-2 themed-grid-col"> <?php echo $data->user; ?> </div>
-                                <div class="col-2 themed-grid-col"> <?php echo $data->nama_pengguna; ?></div>
-                                <div class="col-2 themed-grid-col"> <?php
-                                                                    if ($data->is_aktif == 0) {
-                                                                        echo "Tidak Aktif";
-                                                                    } else {
-                                                                        echo "Aktif";
-                                                                    } ?> </div>
-                                <div class="col-2 themed-grid-col"> <?php
-                                                                    if ($data->peran == 1) {
-                                                                        echo "Super Admin";
-                                                                    } else {
-                                                                        echo "Admin";
-                                                                    }
-                                                                    ?> </div>
+                                <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->user; ?> </div>
+                                <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->nama_pengguna; ?></div>
+                                <div class="col-1 themed-grid-col text-wrap"> <?php
+                                                                                if ($data->is_aktif == 0) {
+                                                                                    echo "Tidak Aktif";
+                                                                                } else {
+                                                                                    echo "Aktif";
+                                                                                } ?> </div>
+                                <div class="col-1 themed-grid-col text-wrap"> <?php
+                                                                                if ($data->peran == 1) {
+                                                                                    echo "Super Admin";
+                                                                                } else {
+                                                                                    echo "Admin";
+                                                                                }
+                                                                                ?> </div>
                                 <div class="col-3 themed-grid-col">
                                     <?php if ($data->is_aktif == 0) { ?>
                                         <a class="btn btn-secondary" href=" <?= base_url('Zone_SUAdmin/aktifkan/' . $data->id_user) ?>" role="button">Aktifkan</a>

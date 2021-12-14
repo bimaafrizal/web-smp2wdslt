@@ -45,12 +45,22 @@
                         <p class="text">Welcome</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('Zone_SUAdmin/user') ?>" class="nav-link">
-                        <i class="fas fa-users"></i>
-                        <p class="text">Tambah Admin/Super Admin</p>
-                    </a>
-                </li>
+                <?php $peran = $this->session->userdata('peran');
+                $queryMenu = "SELECT * FROM `menu` WHERE `peran` = $peran";
+                $menus = $this->db->query($queryMenu)->result_array();
+
+                // var_dump($menus);
+                // die;
+                ?>
+
+                <?php foreach ($menus as $menu) { ?>
+                    <li class="nav-item">
+                        <a href="<?= base_url($menu['url']); ?>" class="nav-link">
+                            <i class="<?= $menu['icon']; ?>"></i>
+                            <p class="text"><?= $menu['nama_menu']; ?></p>
+                        </a>
+                    </li>
+                <?php } ?>
                 <li class="nav-item">
                     <a href="<?= base_url('Login/logout') ?>" class="nav-link">
                         <i class="fas fa-sign-in-alt"></i>
