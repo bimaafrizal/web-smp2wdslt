@@ -50,7 +50,7 @@ class Zone_SUAdmin extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Email sudah digunakan
               </div>');
-                redirect('Zone_SUAdmin/proses_registrasi');
+                redirect('Zone_SUAdmin/registrasi');
             } else {
                 if ($pass == $konfirmPass) {
                     $data = [
@@ -67,14 +67,14 @@ class Zone_SUAdmin extends CI_Controller
                     $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Password dan Konfrirmasi password harus sama
               </div>');
-                    redirect('Zone_SUAdmin/proses_registrasi');
+                    redirect('Zone_SUAdmin/registrasi');
                 }
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Semua form wajib diisi
               </div>');
-            redirect('Zone_SUAdmin/proses_registrasi');
+            redirect('Zone_SUAdmin/registrasi');
         }
     }
 
@@ -142,7 +142,7 @@ class Zone_SUAdmin extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Email sudah digunakan
               </div>');
-                redirect('Zone_SUAdmin/proses_edit_user');
+                redirect('Zone_SUAdmin/edit_user');
             } else {
                 if ($pass == '') {
                     $data = [
@@ -175,7 +175,70 @@ class Zone_SUAdmin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Semua form wajib diisi(kecuali password)
               </div>');
-            redirect('Zone_SUAdmin/proses_edit_user');
+            redirect('Zone_SUAdmin/edit_user');
+        }
+    }
+
+    public function menu()
+    {
+        $data = $this->SUAdmin->ambil_data_menu();
+        $arrayData = array(
+            'datas' => $data
+        );
+
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('SUadmin/Main/menu', $arrayData);
+        $this->load->view('SUadmin/Nav/footer');
+    }
+
+    public function edit_menu($id)
+    {
+        $ambilData = $this->SUAdmin->ambil_data_menu_id($id);
+
+        if ($ambilData) {
+            $data = array(
+                'id_menu' => $ambilData->id_menu,
+                'nama_menu' => $ambilData->nama_menu,
+                'url' => $ambilData->url,
+                'icon' => $ambilData->icon,
+                'peran' => $ambilData->peran
+            );
+        }
+
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('SUadmin/Main/menu_edit', $data);
+        $this->load->view('SUadmin/Nav/footer');
+    }
+    public function proses_edit_menu()
+    {
+        $nama_menu = $this->input->post('nama_menu');
+        $icon = $this->input->post('icon');
+
+        if (($nama_menu != '') && ($icon != '')) {
+            $sql = $this->db->query("SELECT nama_menu FROM menu where nama_menu='$nama_menu'");
+            $tes_duplikat = $sql->num_rows();
+            if ($tes_duplikat > 1) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Nama menu sudah digunakan
+              </div>');
+                redirect('Zone_SUAdmin/edit_menu');
+            } else {
+                $data = [
+                    'nama_menu' => $nama_menu,
+                    'icon' => $icon
+                ];
+                // var_dump($data);
+                // die;
+                $this->SUAdmin->edit_menu($data);
+                redirect('Zone_SUAdmin/menu');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Semua form wajib diisi
+          </div>');
+            redirect('Zone_SUAdmin/edit_menu');
         }
     }
 }
