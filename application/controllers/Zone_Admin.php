@@ -105,6 +105,7 @@ class Zone_Admin extends CI_Controller
 
     public function berita()
     {
+
         $this->load->view('SUadmin/Nav/header2');
         $this->load->view('SUadmin/Nav/sidebar');
         $this->load->view('SUadmin/Nav/footer');
@@ -112,14 +113,140 @@ class Zone_Admin extends CI_Controller
 
     public function guru()
     {
+        $data = $this->Admin->ambil_data_guru();
+        $arrayData = array(
+            'datas' => $data
+        );
+
         $this->load->view('SUadmin/Nav/header2');
         $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/guru', $arrayData);
         $this->load->view('SUadmin/Nav/footer');
     }
+
+
+    public function tambah_guru()
+    {
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/guru_tambah');
+        $this->load->view('SUadmin/Nav/footer');
+    }
+
+    public function proses_tambah_guru()
+    {
+        $nama_guru = $this->input->post('nama_guru');
+        $nip = $this->input->post('nip');
+        $alamat = $this->input->post('alamat');
+        $email = $this->input->post('email');
+
+        if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '')) {
+            $sql = $this->db->query("SELECT nip FROM guru where nip = '$nip'");
+            $tes_duplikat_nip = $sql->num_rows();
+            if ($tes_duplikat_nip) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                NIP sudah ada
+              </div>');
+                redirect('Zone_Admin/tambah_guru');
+            } else {
+                $data = [
+                    'nama_guru' => $nama_guru,
+                    'nip' => $nip,
+                    'alamat' => $alamat,
+                    'email' => $email
+                ];
+                $this->Admin->tambah_guru($data);
+                redirect('Zone_Admin/guru');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Semua form harus diisi
+              </div>');
+            redirect('Zone_Admin/tambah_guru');
+        }
+    }
+
+    public function edit_guru($id)
+    {
+        $ambilData = $this->Admin->ambil_data_guru_id($id);
+
+        if ($ambilData) {
+            $data = array(
+                'id_guru' => $ambilData->id_guru,
+                'nama_guru' => $ambilData->nama_guru,
+                'nip' => $ambilData->nip,
+                'alamat' => $ambilData->alamat,
+                'email' => $ambilData->email
+            );
+        }
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/guru_edit', $data);
+        $this->load->view('SUadmin/Nav/footer');
+    }
+
+    public function proses_edit_guru()
+    {
+        $nama_guru = $this->input->post('nama_guru');
+        $nip = $this->input->post('nip');
+        $alamat = $this->input->post('alamat');
+        $email = $this->input->post('email');
+
+        if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '')) {
+            $sql = $this->db->query("SELECT nip FROM guru where nip = '$nip'");
+            $tes_duplikat_nip = $sql->num_rows();
+            if ($tes_duplikat_nip) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                NIP sudah ada
+              </div>');
+                redirect('Zone_Admin/edit_guru');
+            } else {
+                $data = [
+                    'nama_guru' => $nama_guru,
+                    'nip' => $nip,
+                    'alamat' => $alamat,
+                    'email' => $email
+                ];
+                $this->Admin->edit_guru($data);
+                redirect('Zone_Admin/guru');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Semua form harus diisi
+              </div>');
+            redirect('Zone_Admin/edit_guru');
+        }
+    }
+
+    public function hapus_guru($id)
+    {
+        $this->Admin->delete_guru($id);
+        redirect('Zone_Admin/guru');
+    }
+
+
     public function siswa()
     {
         $this->load->view('SUadmin/Nav/header2');
         $this->load->view('SUadmin/Nav/sidebar');
         $this->load->view('SUadmin/Nav/footer');
+    }
+
+    public function tambah_siswa()
+    {
+    }
+    public function proses_tambah_siswa()
+    {
+    }
+    public function edit_siswa()
+    {
+    }
+
+    public function proses_edit_siswa()
+    {
+    }
+
+    public function hapus_siswa()
+    {
     }
 }
