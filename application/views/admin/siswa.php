@@ -58,19 +58,22 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md">
-                        <h1>List Menu</h1>
-                        <p class="lead">Ini adalah daftar menu yang tersedia.</p>
-                        <p>Silakan lakukan manajemen menu yang ada dalam list di bawah ini</p>
-
+                        <h1>List Siswa</h1>
+                        <p class="lead">Ini adalah daftar siswa yang tersedia.</p>
+                        <p>Silakan lakukan manajemen siswa yang ada dalam list di bawah ini</p>
+                        <a href="<?= base_url('Zone_Admin/tambah_siswa') ?>" class="btn btn-success" role="button" class="btn btn-primary" id="tombolTambah">
+                            <i class="fa fa-plus-circle"></i> Tambah Data
+                        </a>
                         <div class="row mb-3">
                         </div>
                         <div class="row mb-3">
                             <div class="col-1 themed-grid-col">#</div>
-                            <div class="col-3 themed-grid-col">Nama Menu</div>
-                            <div class="col-3 themed-grid-col">url</div>
-                            <div class="col-1 themed-grid-col">Icon</div>
-                            <div class="col-1 themed-grid-col">Peran</div>
-                            <div class="col-3 themed-grid-col">AKSI</div>
+                            <div class="col-2 themed-grid-col">Foto Siswa</div>
+                            <div class="col-2 themed-grid-col">Nama Siswa</div>
+                            <div class="col-2 themed-grid-col">Alamat</div>
+                            <div class="col-2 themed-grid-col">Prestasi</div>
+                            <div class="col-1 themed-grid-col">Tahun Masuk</div>
+                            <div class="col-2 themed-grid-col">AKSI</div>
                         </div>
                         <?php
                         $i = 1;
@@ -78,18 +81,14 @@
                         ?>
                             <div class="row mb-3">
                                 <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
-                                <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->nama_menu; ?> </div>
-                                <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->url; ?></div>
-                                <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->icon ?> </div>
-                                <div class="col-1 themed-grid-col text-wrap"> <?php
-                                                                                if ($data->peran == 1) {
-                                                                                    echo "Super Admin";
-                                                                                } else {
-                                                                                    echo "Admin";
-                                                                                }
-                                                                                ?> </div>
-                                <div class="col-3 themed-grid-col">
-                                    <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_menu/' . $data->id_menu) ?>" role="button">Edit</a>
+                                <div class="col-2 themed-grid-col"> </div>
+                                <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->nama_siswa; ?> </div>
+                                <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?></div>
+                                <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->prestasi; ?> </div>
+                                <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->tahun_masuk; ?></div>
+                                <div class="col-2 themed-grid-col">
+                                    <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_siswa/' . $data->id_siswa) ?>" role="button">Edit</a>
+                                    <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_siswa/' . $data->id_siswa) ?>" role="button">Hapus</a>
                                 </div>
                             </div>
 

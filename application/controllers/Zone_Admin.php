@@ -198,7 +198,7 @@ class Zone_Admin extends CI_Controller
             if ($tes_duplikat_nip) {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 NIP sudah ada
-              </div>');
+                </div>');
                 redirect('Zone_Admin/edit_guru');
             } else {
                 $data = [
@@ -212,8 +212,8 @@ class Zone_Admin extends CI_Controller
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Semua form harus diisi
-              </div>');
+            Semua form harus diisi
+            </div>');
             redirect('Zone_Admin/edit_guru');
         }
     }
@@ -227,26 +227,111 @@ class Zone_Admin extends CI_Controller
 
     public function siswa()
     {
+        $data = $this->Admin->ambil_data_siswa();
+        $arrayData = array(
+            'datas' => $data
+        );
         $this->load->view('SUadmin/Nav/header2');
         $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/siswa', $arrayData);
         $this->load->view('SUadmin/Nav/footer');
     }
 
     public function tambah_siswa()
     {
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/siswa_tambah');
+        $this->load->view('SUadmin/Nav/footer');
     }
     public function proses_tambah_siswa()
     {
+        $nama_siswa = $this->input->post('nama_siswa');
+        $alamat = $this->input->post('alamat');
+        $prestasi = $this->input->post('prestasi');
+        $tahun_masuk = $this->input->post('tahun_masuk');
+
+        if (($nama_siswa != '') && ($alamat != '') && ($prestasi != '') && ($tahun_masuk != '')) {
+            $sql = $this->db->query("SELECT nama_siswa FROM siswa where nama_siswa = '$nama_siswa'");
+            $tes_duplikat_nama = $sql->num_rows();
+            if ($tes_duplikat_nama) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Nama sudah ada
+                </div>');
+                redirect('Zone_Admin/edit_guru');
+            } else {
+                $data = [
+                    'nama_siswa' => $nama_siswa,
+                    'alamat' => $alamat,
+                    'prestasi' => $prestasi,
+                    'tahun_masuk' => $tahun_masuk
+                ];
+                $this->Admin->tambah_siswa($data);
+                redirect('Zone_Admin/siswa');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Semua form harus diisi
+            </div>');
+            redirect('Zone_Admin/tambah_siswa');
+        }
     }
-    public function edit_siswa()
+
+    public function edit_siswa($id)
     {
+        $ambilData = $this->Admin->ambil_data_siswa_id($id);
+
+        if ($ambilData) {
+            $data = array(
+                'id_siswa' => $ambilData->id_siswa,
+                'nama_siswa' => $ambilData->nama_siswa,
+                'alamat' => $ambilData->alamat,
+                'prestasi' => $ambilData->prestasi,
+                'tahun_masuk' => $ambilData->tahun_masuk
+            );
+        }
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/siswa_edit', $data);
+        $this->load->view('SUadmin/Nav/footer');
     }
 
     public function proses_edit_siswa()
     {
+        $nama_siswa = $this->input->post('nama_siswa');
+        $alamat = $this->input->post('alamat');
+        $prestasi = $this->input->post('prestasi');
+        $tahun_masuk = $this->input->post('tahun_masuk');
+
+        if (($nama_siswa != '') && ($alamat != '') && ($prestasi != '') && ($tahun_masuk != '')) {
+            $sql = $this->db->query("SELECT nama_siswa FROM siswa where nama_siswa = '$nama_siswa'");
+            $tes_duplikat_nama = $sql->num_rows();
+            if ($tes_duplikat_nama) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Nama sudah ada
+                </div>');
+                redirect('Zone_Admin/edit_guru');
+            } else {
+                $data = [
+                    'nama_siswa' => $nama_siswa,
+                    'alamat' => $alamat,
+                    'prestasi' => $prestasi,
+                    'tahun_masuk' => $tahun_masuk
+                ];
+                $this->Admin->edit_siswa($data);
+                redirect('Zone_Admin/siswa');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Semua form harus diisi
+            </div>');
+            redirect('Zone_Admin/tambah_siswa');
+        }
     }
 
-    public function hapus_siswa()
+    public function hapus_siswa($id)
     {
+        $this->Admin->delete_siswa($id);
+        redirect('Zone_Admin/siswa');
     }
 }

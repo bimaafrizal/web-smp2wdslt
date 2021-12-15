@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Edit Data Guru</h1>
+                    <h1 class="m-0">Tambah Data Guru</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -18,26 +18,25 @@
             <div class="card card-primary">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="<?= base_url('Zone_Admin/proses_edit_guru') ?>" method="post">
+                <form action="<?= base_url('Zone_Admin/proses_edit_siswa') ?>" method="post">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="nama_guru">Nama Guru</label>
-                            <input type="text" class="form-control" id="nama_guru" name="nama_guru" placeholder="Nama Guru" value="<?= $nama_guru ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="namaPengguna">NIP</label>
-                            <input type="number" class="form-control" id="nip" name="nip" placeholder="nip" value="<?= $nip ?>">
-                            <p>Jika tidak punya NIP ketikan angka 0</p>
+                            <label for="nama_siswa">Nama Siswa</label>
+                            <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" placeholder="Nama Siswa" value="<?= $nama_siswa ?>">
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="<?= $alamat ?>">
                         </div>
                         <div class="form-group">
-                            <label for="email"> Email </label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Guru" value="<?= $email ?>">
+                            <label for="prestasi">Prestasi</label>
+                            <input type="text" class="form-control" id="prestasi" name="prestasi" placeholder="Prestasi" value="<?= $prestasi ?>">
                         </div>
-                        <input type="hidden" name="id_guru" value="<?php echo $id_guru; ?>" />
+                        <div class="form-group">
+                            <label for="tahun_masuk"> Tahun Masuk </label>
+                            <input type="number" class="form-control" id="tahun_masuk" name="tahun_masuk" placeholder="Tahun Masuk" value="<?= $tahun_masuk ?>">
+                        </div>
+                        <input type="hidden" name="id_siswa" value="<?php echo $id_siswa; ?>" />
                         <?php echo $this->session->flashdata('message'); ?>
                     </div>
                     <!-- /.card-body -->
