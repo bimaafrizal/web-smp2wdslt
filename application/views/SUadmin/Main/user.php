@@ -102,7 +102,7 @@
                                         <a class="btn btn-info" href="<?= base_url('Zone_SUAdmin/nonAktifkan/' . $data->id_user) ?>" role="button">Non aktifkan</a>
                                     <?php } ?>
                                     <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_user/' . $data->id_user) ?>" role="button">Edit</a>
-                                    <a class="btn btn-danger" href="<?= base_url('Zone_SUAdmin/hapus_user/' . $data->id_user) ?>" role="button">Hapus</a>
+                                    <a class="btn btn-danger" href="<?= base_url('Zone_SUAdmin/hapus_user/' . $data->id_user) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus user')">Hapus</a>
                                 </div>
                             </div>
 

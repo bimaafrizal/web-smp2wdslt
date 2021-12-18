@@ -80,7 +80,7 @@
                                 <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->nama_kategori; ?></div>
                                 <div class="col-3 themed-grid-col">
                                     <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_kategori/' . $data->id_kategori) ?>" role="button">Edit</a>
-                                    <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_kategori/' . $data->id_kategori) ?>" role="button">Hapus</a>
+                                    <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_kategori/' . $data->id_kategori) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data kategori?')">Hapus</a>
                                 </div>
                             </div>
 

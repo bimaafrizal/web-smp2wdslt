@@ -81,14 +81,14 @@
                         ?>
                             <div class="row mb-3">
                                 <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
-                                <div class="col-2 themed-grid-col"> </div>
+                                <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/') . $data->foto_guru ?>" alt="" class="img-thumbnail" width="500px"></div>
                                 <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->nama_guru; ?> </div>
                                 <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->nip; ?></div>
                                 <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?> </div>
                                 <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->email; ?></div>
                                 <div class="col-2 themed-grid-col">
                                     <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
-                                    <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button">Hapus</a>
+                                    <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
                                 </div>
                             </div>
 

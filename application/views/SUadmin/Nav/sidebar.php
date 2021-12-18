@@ -62,7 +62,7 @@
                     </li>
                 <?php } ?>
                 <li class="nav-item">
-                    <a href="<?= base_url('Login/logout') ?>" class="nav-link">
+                    <a href="<?= base_url('Login/logout') ?>" class="nav-link" onclick="return confirm('Apakah anda yakin ingin keluar?')">
                         <i class="fas fa-sign-in-alt"></i>
                         <p class="text">Logout</p>
                     </a>

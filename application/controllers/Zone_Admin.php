@@ -140,23 +140,58 @@ class Zone_Admin extends CI_Controller
         $alamat = $this->input->post('alamat');
         $email = $this->input->post('email');
 
+
+        // var_dump($image);
+        // die;
+
         if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '')) {
-            $sql = $this->db->query("SELECT nip FROM guru where nip = '$nip'");
-            $tes_duplikat_nip = $sql->num_rows();
-            if ($tes_duplikat_nip) {
+            $sql = $this->db->query("SELECT email FROM guru where email = '$email'");
+            $tes_duplikat_email = $sql->num_rows();
+            if ($tes_duplikat_email) {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                NIP sudah ada
+                Email sudah ada
               </div>');
                 redirect('Zone_Admin/tambah_guru');
             } else {
-                $data = [
-                    'nama_guru' => $nama_guru,
-                    'nip' => $nip,
-                    'alamat' => $alamat,
-                    'email' => $email
-                ];
-                $this->Admin->tambah_guru($data);
-                redirect('Zone_Admin/guru');
+                // if($this->upload->do_upload('image')) {
+                //     $oldImage = $data['user','image']
+                // }
+
+                $config['upload_path'] = './assets/imagesData/';
+                $config['allowed_types'] = 'jpg|png|jpeg';
+                $config['max_size'] = 50000;
+                $config['max_width']  = 51280;
+                $config['max_height']  = 51280;
+                $config['file_name'] = $_FILES['image']['name'];
+                // $this->load->library('upload', $config);
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+                    $data = [
+                        'nama_guru' => $nama_guru,
+                        'nip' => $nip,
+                        'alamat' => $alamat,
+                        'email' => $email,
+                        'foto_guru' => $filename
+                    ];
+                    // var_dump($data);
+                    // die;
+                    $this->Admin->tambah_guru($data);
+
+                    redirect('Zone_Admin/guru');
+                } else {
+                    redirect('Zone_Admin/tambah_guru');
+                }
+
+
+                // var_dump($upload_data);
+                // die;
+
+                // var_dump($data);
+                // die;
+
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -260,14 +295,30 @@ class Zone_Admin extends CI_Controller
                 </div>');
                 redirect('Zone_Admin/edit_guru');
             } else {
-                $data = [
-                    'nama_siswa' => $nama_siswa,
-                    'alamat' => $alamat,
-                    'prestasi' => $prestasi,
-                    'tahun_masuk' => $tahun_masuk
-                ];
-                $this->Admin->tambah_siswa($data);
-                redirect('Zone_Admin/siswa');
+                $config['upload_path'] = './assets/imagesData/fotoSiswa/';
+                $config['allowed_types'] = 'jpg|png|jpeg';
+                $config['max_size'] = 50000;
+                $config['max_width']  = 51280;
+                $config['max_height']  = 51280;
+                $config['file_name'] = $_FILES['image']['name'];
+                // $this->load->library('upload', $config);
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+                    $data = [
+                        'nama_siswa' => $nama_siswa,
+                        'alamat' => $alamat,
+                        'prestasi' => $prestasi,
+                        'tahun_masuk' => $tahun_masuk,
+                        'foto_siswa' => $filename
+                    ];
+                    $this->Admin->tambah_siswa($data);
+                    redirect('Zone_Admin/siswa');
+                } else {
+                    redirect('Zone_Admi/tambah_siswa');
+                }
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -288,6 +339,7 @@ class Zone_Admin extends CI_Controller
                 'alamat' => $ambilData->alamat,
                 'prestasi' => $ambilData->prestasi,
                 'tahun_masuk' => $ambilData->tahun_masuk
+
             );
         }
         $this->load->view('SUadmin/Nav/header2');
