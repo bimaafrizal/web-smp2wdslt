@@ -6,6 +6,7 @@ class Admin extends CI_Model
     public $table_kategori = 'kategori';
     public $table_guru = 'guru';
     public $table_siswa = 'siswa';
+    public $table_berita = 'berita';
 
 
     public function ambil_data_kategori()
@@ -83,5 +84,14 @@ class Admin extends CI_Model
     {
         $this->db->where('id_siswa', $id);
         return $this->db->delete($this->table_siswa);
+    }
+
+    public function tambah_berita($data)
+    {
+        return $this->db->insert($this->table_berita, $data);
+    }
+    public function ambil_data_berita()
+    {
+        return $this->db->get($this->table_berita)->result();
     }
 }
