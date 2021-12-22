@@ -116,43 +116,18 @@ https://www.tooplate.com/view/2119-gymso-fitness
                 <div class="col-lg-12 col-12 text-center mb-5">
                     <h2 data-aos="fade-up">AGAMIS - BERBUDI MULIA - BERBUDAYA BERPRESTASI</h2>
                 </div>
-
                 <div class="mt-4 mb-lg-0 mb-4 col-lg-6 col-md-10 mx-auto col-12">
                     <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">HALLO, SELAMAT DATANG DI SMP NEGERI 2 Wadaslintang</h2>
 
                     <p data-aos="fade-up" data-aos-delay="400">SMP Negeri 2 Wadaslintang adalah sebuah Sekolah yang mengedepankan akhlak mulia berdasarkan agama, berbudi mulia untuk menjadikan peserta didik yang berprestasi</p>
 
                     <p data-aos="fade-up" data-aos-delay="500">Sikap kreatif, inspiratif, dan integritas merupakan hal wajib yang dimiliki warga SMP Negeri 2 Wadaslintang</p>
-
                 </div>
-
                 <div class="mt-4 ml-lg-auto col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
                     <div class="team-thumb">
                         <img src=" <?= base_url('assets/images/Pramuka1.jpeg') ?> " class="img-fluid" alt="Trainer">
                     </div>
                 </div>
-
-                <!-- <div class="mr-lg-auto mt-5 mt-lg-0 mt-md-0 col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="800">
-                    <div class="team-thumb">
-                        <img src="images/team/team-image01.jpg" class="img-fluid" alt="Trainer">
-
-                        <div class="team-info d-flex flex-column">
-
-                            <h3>Catherina</h3>
-                            <span>Body trainer</span>
-
-                            <ul class="social-icon mt-3">
-                                <li>
-                                    <a href="#" class="fa fa-instagram"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="fa fa-facebook"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> -->
-
             </div>
             <div class="row mt-5">
                 <div class="ml-lg-auto col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
@@ -170,7 +145,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
             <div class="row mt-5">
                 <div class="mb-lg-0 mb-4 col-lg-6 col-md-10 mx-auto col-12">
                     <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Misi</h2>
-
                     <p data-aos="fade-up" data-aos-delay="400">1. Melaksanakan pembelajaran dan bimbingan secara efektif dan efisien</p>
                     <p data-aos="fade-up" data-aos-delay="400">2. Mengantarkan siswa SMP untuk lulus 100%</p>
                     <p data-aos="fade-up" data-aos-delay="400">3. Melaksanakan MBS secara efektif san efisien</p>
@@ -185,7 +159,14 @@ https://www.tooplate.com/view/2119-gymso-fitness
                         <img src=" <?= base_url('assets/images/ruang_komputer2.jpeg') ?>" class="img-fluid" alt="Trainer">
                     </div>
                 </div>
-
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12 col-12 text-center mt-3 mb-2">
+                    <h2 class="mb-5" data-aos="fade-up">SAMBUTAN KEPALA DINAS DIKPORA WONOSOBO</h2>
+                    <div data-aos="fade-up" data-aos-delay="400">
+                        <iframe width="800" height="500" src="https://www.youtube.com/embed/_eEbm18F-uQ?start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -197,8 +178,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
             <div class="row">
 
                 <div class="col-lg-12 col-12 text-center mb-5">
-                    <!-- <h6 data-aos="fade-up">Get A Perfect Body</h6> -->
-
                     <h2 data-aos="fade-up" data-aos-delay="200">Berita Terkini</h2>
                 </div>
 
@@ -210,8 +189,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
                             <h3 class="mb-1">Press Release</h3>
 
                             <span><strong>Oleh</strong> - Bima</span>
-
-                            <!-- <span class="class-price">$50</span> -->
 
                             <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
                             <a href=" <?= base_url('Login/berita') ?> " class="btn btn-primary">Baca Selengkapnya</a>
@@ -225,11 +202,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
                         <div class="class-info">
                             <h3 class="mb-1">Serah Terima Jabatan</h3>
-
                             <span><strong>Oleh</strong> - Ki Sudadi</span>
-
-                            <!-- <span class="class-price">$66</span> -->
-
                             <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
                             <a href="<?= base_url('Login/berita') ?>" class="btn btn-primary">Baca Selengkapnya</a>
                         </div>
@@ -242,17 +215,12 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
                         <div class="class-info">
                             <h3 class="mb-1">Hari Raya Idul Adha</h3>
-
                             <span><strong>Oleh</strong> - Sariman</span>
-
-                            <!-- <span class="class-price">$75</span> -->
-
                             <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
                             <a href=" <?= base_url('Login/berita') ?> " class="btn btn-primary">Baca Selengkapnya</a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
