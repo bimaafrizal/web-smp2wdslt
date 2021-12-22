@@ -116,18 +116,6 @@ class Zone_Admin extends CI_Controller
         $this->load->view('SUadmin/Nav/footer');
     }
 
-    public function guru()
-    {
-        $data = $this->Admin->ambil_data_guru();
-        $arrayData = array(
-            'datas' => $data
-        );
-
-        $this->load->view('SUadmin/Nav/header2');
-        $this->load->view('SUadmin/Nav/sidebar');
-        $this->load->view('admin/guru', $arrayData);
-        $this->load->view('SUadmin/Nav/footer');
-    }
     public function tambah_berita()
     {
         $data['kategoris'] = $this->Admin->ambil_data_kategori();
@@ -141,11 +129,10 @@ class Zone_Admin extends CI_Controller
         $judul = $this->input->post('judul');
         $isi_berita = $this->input->post('isi_berita');
         $kategori = $this->input->post('kategori');
-        $cover = $this->input->post('image');
+        $cover = $_FILES['image']['name'];
 
 
-        if (($judul != '')  && ($isi_berita != '')) {
-
+        if (($judul != '')  && ($isi_berita != '') && ($cover != '')) {
             $config['upload_path'] = './assets/imagesData/cover';
             $config['allowed_types'] = 'jpg|png|jpeg';
             $config['max_size'] = 50000;
@@ -181,8 +168,93 @@ class Zone_Admin extends CI_Controller
               </div>');
         }
     }
+    public function edit_berita($id)
+    {
+        $ambilData = $this->Admin->ambil_data_berita_id($id);
 
 
+        if ($ambilData) {
+            $data = array(
+                'id_berita' => $ambilData->id_berita,
+                'judul_berita' => $ambilData->judul_berita,
+                'isi_berita' => $ambilData->isi_berita,
+                'cover_berita' => $ambilData->cover_berita,
+                'kategoris' => $this->Admin->ambil_data_kategori()
+            );
+        }
+
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/berita_edit', $data);
+        $this->load->view('SUadmin/Nav/footer');
+    }
+    public function proses_edit_berita()
+    {
+        $judul = $this->input->post('judul');
+        $isi_berita = $this->input->post('isi_berita');
+        $kategori = $this->input->post('kategori');
+        $cover = $_FILES['image']['name'];
+        $tanggal = time();
+
+
+        if (($judul != '')  && ($isi_berita != '') && ($cover != '')) {
+            $this->db->set('judul_berita', $judul);
+            $this->db->set('isi_berita', $isi_berita);
+            $this->db->set('kategori', $kategori);
+            $this->db->set('tanggal', $tanggal);
+            $id = $this->input->post('id_berita');
+
+            $config['upload_path'] = './assets/imagesData/cover';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['max_size'] = 50000;
+            $config['max_width']  = 51280;
+            $config['max_height']  = 51280;
+            $config['file_name'] = $_FILES['image']['name'];
+            // $this->load->library('upload', $config);
+            $this->load->library('upload', $config);
+
+            // var_dump($config);
+            // die;
+            if ($this->upload->do_upload('image')) {
+                $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
+                $old_image =  $ambilData['cover_berita'];
+
+                if ($old_image) {
+                    unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
+                }
+
+                $new_image = $this->upload->data('file_name');
+                $this->db->set('cover_berita', $new_image);
+
+                $uploadData = $this->upload->data();
+                $filename = $uploadData['file_name'];
+                $this->db->set('cover_berita', $filename);
+            } else {
+                redirect('Zone_Admin/edit_berita');
+            }
+            $this->db->where('id_berita', $id);
+            $this->db->update('berita');
+            redirect('Zone_Admin/berita');
+        } else {
+            redirect('Zone_Admin/edit_berita');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Semua form harus diisi
+              </div>');
+        }
+    }
+
+    public function guru()
+    {
+        $data = $this->Admin->ambil_data_guru();
+        $arrayData = array(
+            'datas' => $data
+        );
+
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('admin/guru', $arrayData);
+        $this->load->view('SUadmin/Nav/footer');
+    }
 
     public function tambah_guru()
     {
@@ -198,10 +270,7 @@ class Zone_Admin extends CI_Controller
         $nip = $this->input->post('nip');
         $alamat = $this->input->post('alamat');
         $email = $this->input->post('email');
-        $gambar = $this->input->post('image');
-
-        // var_dump($gambar);
-        // die;
+        $gambar = $_FILES['image']['name'];
 
         if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '') && ($gambar != '')) {
             $sql = $this->db->query("SELECT email FROM guru where email = '$email'");
@@ -273,24 +342,49 @@ class Zone_Admin extends CI_Controller
         $nip = $this->input->post('nip');
         $alamat = $this->input->post('alamat');
         $email = $this->input->post('email');
+        $gambar = $_FILES['image']['name'];
+        $id = $this->input->post('id_guru');
 
-
-        if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '')) {
-            $sql = $this->db->query("SELECT nip FROM guru where nip = '$nip'");
-            $tes_duplikat_nip = $sql->num_rows();
-            if ($tes_duplikat_nip) {
+        if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '') && ($gambar != '')) {
+            $sql = $this->db->query("SELECT email FROM guru where email = '$email'");
+            $tes_duplikat_email = $sql->num_rows();
+            if ($tes_duplikat_email > 1) {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 NIP sudah ada
                 </div>');
                 redirect('Zone_Admin/edit_guru');
             } else {
-                $data = [
-                    'nama_guru' => $nama_guru,
-                    'nip' => $nip,
-                    'alamat' => $alamat,
-                    'email' => $email
-                ];
-                $this->Admin->edit_guru($data);
+                $this->db->set('nama_guru', $nama_guru);
+                $this->db->set('nip', $nip);
+                $this->db->set('alamat', $alamat);
+                $this->db->set('email', $email);
+
+                $config['upload_path'] = './assets/imagesData/fotoGuru/';
+                $config['allowed_types'] = 'jpg|png|jpeg';
+                $config['max_size'] = 50000;
+                $config['max_width']  = 51280;
+                $config['max_height']  = 51280;
+                $config['file_name'] = $_FILES['image']['name'];
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $ambilData = $this->db->get_where('guru', ['id_guru' => $id])->row_array();
+                    $old_image =  $ambilData['foto_guru'];
+
+                    if ($old_image) {
+                        unlink(FCPATH . './assets/imagesData/fotoGuru/' . $old_image);
+                    }
+
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('foto_guru', $new_image);
+
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+                    $this->db->set('foto_guru', $filename);
+                }
+
+                $this->db->where('id_guru', $id);
+                $this->db->update('guru');
                 redirect('Zone_Admin/guru');
             }
         } else {
@@ -303,6 +397,11 @@ class Zone_Admin extends CI_Controller
 
     public function hapus_guru($id)
     {
+        $ambilData = $this->db->get_where('guru', ['id_guru' => $id])->row_array();
+        $old_image =  $ambilData['foto_guru'];
+        if ($old_image) {
+            unlink(FCPATH . './assets/imagesData/fotoGuru/' . $old_image);
+        }
         $this->Admin->delete_guru($id);
         redirect('Zone_Admin/guru');
     }
@@ -333,41 +432,32 @@ class Zone_Admin extends CI_Controller
         $alamat = $this->input->post('alamat');
         $prestasi = $this->input->post('prestasi');
         $tahun_masuk = $this->input->post('tahun_masuk');
-        $gambar = $this->input->post('image');
+        $gambar = $_FILES['image']['name'];
 
         if (($nama_siswa != '') && ($alamat != '') && ($prestasi != '') && ($tahun_masuk != '') && ($gambar != '')) {
-            $sql = $this->db->query("SELECT nama_siswa FROM siswa where nama_siswa = '$nama_siswa'");
-            $tes_duplikat_nama = $sql->num_rows();
-            if ($tes_duplikat_nama) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Nama sudah ada
-                </div>');
-                redirect('Zone_Admin/edit_guru');
-            } else {
-                $config['upload_path'] = './assets/imagesData/fotoSiswa/';
-                $config['allowed_types'] = 'jpg|png|jpeg';
-                $config['max_size'] = 50000;
-                $config['max_width']  = 51280;
-                $config['max_height']  = 51280;
-                $config['file_name'] = $_FILES['image']['name'];
-                // $this->load->library('upload', $config);
-                $this->load->library('upload', $config);
+            $config['upload_path'] = './assets/imagesData/fotoSiswa/';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['max_size'] = 50000;
+            $config['max_width']  = 51280;
+            $config['max_height']  = 51280;
+            $config['file_name'] = $_FILES['image']['name'];
+            // $this->load->library('upload', $config);
+            $this->load->library('upload', $config);
 
-                if ($this->upload->do_upload('image')) {
-                    $uploadData = $this->upload->data();
-                    $filename = $uploadData['file_name'];
-                    $data = [
-                        'nama_siswa' => $nama_siswa,
-                        'alamat' => $alamat,
-                        'prestasi' => $prestasi,
-                        'tahun_masuk' => $tahun_masuk,
-                        'foto_siswa' => $filename
-                    ];
-                    $this->Admin->tambah_siswa($data);
-                    redirect('Zone_Admin/siswa');
-                } else {
-                    redirect('Zone_Admi/tambah_siswa');
-                }
+            if ($this->upload->do_upload('image')) {
+                $uploadData = $this->upload->data();
+                $filename = $uploadData['file_name'];
+                $data = [
+                    'nama_siswa' => $nama_siswa,
+                    'alamat' => $alamat,
+                    'prestasi' => $prestasi,
+                    'tahun_masuk' => $tahun_masuk,
+                    'foto_siswa' => $filename
+                ];
+                $this->Admin->tambah_siswa($data);
+                redirect('Zone_Admin/siswa');
+            } else {
+                redirect('Zone_Admin/tambah_siswa');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -387,8 +477,8 @@ class Zone_Admin extends CI_Controller
                 'nama_siswa' => $ambilData->nama_siswa,
                 'alamat' => $ambilData->alamat,
                 'prestasi' => $ambilData->prestasi,
-                'tahun_masuk' => $ambilData->tahun_masuk
-
+                'tahun_masuk' => $ambilData->tahun_masuk,
+                'foto_siswa' => $ambilData->foto_siswa
             );
         }
         $this->load->view('SUadmin/Nav/header2');
@@ -403,35 +493,58 @@ class Zone_Admin extends CI_Controller
         $alamat = $this->input->post('alamat');
         $prestasi = $this->input->post('prestasi');
         $tahun_masuk = $this->input->post('tahun_masuk');
+        $gambar = $_FILES['image']['name'];
+        $id = $this->input->post('id_siswa');
 
-        if (($nama_siswa != '') && ($alamat != '') && ($prestasi != '') && ($tahun_masuk != '')) {
-            $sql = $this->db->query("SELECT nama_siswa FROM siswa where nama_siswa = '$nama_siswa'");
-            $tes_duplikat_nama = $sql->num_rows();
-            if ($tes_duplikat_nama) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Nama sudah ada
-                </div>');
-                redirect('Zone_Admin/edit_guru');
-            } else {
-                $data = [
-                    'nama_siswa' => $nama_siswa,
-                    'alamat' => $alamat,
-                    'prestasi' => $prestasi,
-                    'tahun_masuk' => $tahun_masuk
-                ];
-                $this->Admin->edit_siswa($data);
-                redirect('Zone_Admin/siswa');
+        if (($nama_siswa != '') && ($alamat != '') && ($prestasi != '') && ($tahun_masuk != '') && ($gambar != '')) {
+            $this->db->set('nama_siswa', $nama_siswa);
+            $this->db->set('alamat', $alamat);
+            $this->db->set('prestasi', $prestasi);
+            $this->db->set('tahun_masuk', $tahun_masuk);
+
+            $config['upload_path'] = './assets/imagesData/fotoSiswa/';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['max_size'] = 50000;
+            $config['max_width']  = 51280;
+            $config['max_height']  = 51280;
+            $config['file_name'] = $_FILES['image']['name'];
+            // $this->load->library('upload', $config);
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image')) {
+                $ambilData = $this->db->get_where('siswa', ['id_siswa' => $id])->row_array();
+                $old_image =  $ambilData['foto_siswa'];
+                // var_dump($old_image);
+                // die;
+                if ($old_image) {
+                    unlink(FCPATH . './assets/imagesData/fotoSiswa/' . $old_image);
+                }
+
+                $new_image = $this->upload->data('file_name');
+                $this->db->set('foto_siswa', $new_image);
+
+                $uploadData = $this->upload->data();
+                $filename = $uploadData['file_name'];
+                $this->db->set('foto_siswa', $filename);
             }
+            $this->db->where('id_siswa', $id);
+            $this->db->update('siswa');
+            redirect('Zone_Admin/siswa');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form harus diisi
             </div>');
-            redirect('Zone_Admin/tambah_siswa');
+            redirect('Zone_Admin/edit_siswa');
         }
     }
 
     public function hapus_siswa($id)
     {
+        $ambilData = $this->db->get_where('siswa', ['id_siswa' => $id])->row_array();
+        $old_image =  $ambilData['foto_siswa'];
+        if ($old_image) {
+            unlink(FCPATH . './assets/imagesData/fotoSiswa/' . $old_image);
+        }
         $this->Admin->delete_siswa($id);
         redirect('Zone_Admin/siswa');
     }

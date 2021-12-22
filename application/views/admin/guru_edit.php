@@ -19,7 +19,6 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <?php echo form_open_multipart('Zone_Admin/proses_edit_guru') ?>
-                <!-- <form action="<?= base_url('Zone_Admin/proses_edit_guru') ?>" method="post"> -->
                 <div class="card-body">
                     <div class="form-group">
                         <label for="nama_guru">Nama Guru</label>
@@ -38,16 +37,13 @@
                         <label for="email"> Email </label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email Guru" value="<?= $email ?>">
                     </div>
-                    <div class="form-group">
-                        <img src="<?= base_url('/assets/imagesData/') . $foto_guru ?>" alt="" class="img-thumbnail" width="300px">
-                    </div>
                     <label for="image"> Upload foto </label>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image" name="image" size="20">
                         <label class="custom-file-label" for="image">Choose file</label>
                         <p>Gunakan format JPG, JPEG, atau PNG</p>
                     </div>
-                    <input type="hidden" name="id_guru" value="<?php echo $id_guru; ?>" />
+                    <input type="hidden" name="id_guru" id="id_guru" value="<?php echo $id_guru; ?>" />
                     <?php echo $this->session->flashdata('message'); ?>
                 </div>
                 <!-- /.card-body -->
@@ -55,7 +51,6 @@
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Edit</button>
                 </div>
-                <!-- </form> -->
                 <?php echo form_close(); ?>
             </div>
     </section>

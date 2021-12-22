@@ -62,7 +62,7 @@
                         <p class="lead">Ini adalah daftar kategori yang tersedia.</p>
                         <p>Silakan lakukan manajemen kategori yang ada dalam list di bawah ini</p>
                         <a href="<?= base_url('Zone_Admin/tambah_Kategori') ?>" class="btn btn-success" role="button" class="btn btn-primary" id="tombolTambah">
-                            <i class="fa fa-plus-circle"></i> Tambah Akun
+                            <i class="fa fa-plus-circle"></i> Tambah Kategori
                         </a>
                         <div class="row mb-3">
                         </div>

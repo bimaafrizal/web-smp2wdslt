@@ -81,7 +81,7 @@
                         ?>
                             <div class="row mb-3">
                                 <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
-                                <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/') . $data->foto_guru ?>" alt="" class="img-thumbnail" width="500px"></div>
+                                <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="" class="img-thumbnail" width="500px"></div>
                                 <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->nama_guru; ?> </div>
                                 <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->nip; ?></div>
                                 <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?> </div>

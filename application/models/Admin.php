@@ -74,7 +74,6 @@ class Admin extends CI_Model
         $this->db->where('id_siswa', $id);
         return $this->db->get($this->table_siswa)->row();
     }
-
     public function edit_siswa($data)
     {
         $id = array('id_siswa' => $this->input->post('id_siswa'));
@@ -93,5 +92,15 @@ class Admin extends CI_Model
     public function ambil_data_berita()
     {
         return $this->db->get($this->table_berita)->result();
+    }
+    public function ambil_data_berita_id($id)
+    {
+        $this->db->where('id_berita', $id);
+        return $this->db->get($this->table_berita)->row();
+    }
+    public function edit_berita($data)
+    {
+        $id = array('id_berita' => $this->input->post('id_berita'));
+        return $this->db->update($this->table_berita, $data, $id);
     }
 }

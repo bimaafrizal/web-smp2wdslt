@@ -1,4 +1,5 @@
 <script src="<?= base_url('assets/ckeditor/ckeditor.js') ?>"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -64,6 +65,9 @@
     <!-- Control sidebar content goes here -->
 </aside>
 <!-- /.control-sidebar -->
-<script>
-    CKEDITOR.replace('isi_berita');
+<script text="text/javascript">
+    CKEDITOR.replace('isi_berita', {
+        height: 600,
+        filebrowserImageBrowseUrl: "<?= base_url('assets/kcfinder/browse.php'); ?>"
+    });
 </script>
