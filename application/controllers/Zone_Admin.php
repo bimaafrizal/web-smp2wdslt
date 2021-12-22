@@ -195,6 +195,7 @@ class Zone_Admin extends CI_Controller
         $kategori = $this->input->post('kategori');
         $cover = $_FILES['image']['name'];
         $tanggal = time();
+        $id = $this->input->post('id_berita');
 
 
         if (($judul != '')  && ($isi_berita != '') && ($cover != '')) {
@@ -202,7 +203,6 @@ class Zone_Admin extends CI_Controller
             $this->db->set('isi_berita', $isi_berita);
             $this->db->set('kategori', $kategori);
             $this->db->set('tanggal', $tanggal);
-            $id = $this->input->post('id_berita');
 
             $config['upload_path'] = './assets/imagesData/cover';
             $config['allowed_types'] = 'jpg|png|jpeg';
@@ -232,6 +232,18 @@ class Zone_Admin extends CI_Controller
             } else {
                 redirect('Zone_Admin/edit_berita');
             }
+            $this->db->where('id_berita', $id);
+            $this->db->update('berita');
+            redirect('Zone_Admin/berita');
+        } else if (($judul != '')  && ($isi_berita != '') && ($cover == '')) {
+            $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
+            $old_image =  $ambilData['cover_berita'];
+
+            $this->db->set('judul_berita', $judul);
+            $this->db->set('isi_berita', $isi_berita);
+            $this->db->set('kategori', $kategori);
+            $this->db->set('tanggal', $tanggal);
+            $this->db->set('cover_berita', $old_image);
             $this->db->where('id_berita', $id);
             $this->db->update('berita');
             redirect('Zone_Admin/berita');
@@ -387,6 +399,17 @@ class Zone_Admin extends CI_Controller
                 $this->db->update('guru');
                 redirect('Zone_Admin/guru');
             }
+        } else if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '') && ($gambar == '')) {
+            $ambilData = $this->db->get_where('guru', ['id_guru' => $id])->row_array();
+            $old_image =  $ambilData['foto_guru'];
+            $this->db->set('nama_guru', $nama_guru);
+            $this->db->set('nip', $nip);
+            $this->db->set('alamat', $alamat);
+            $this->db->set('email', $email);
+            $this->db->set('foto_guru', $old_image);
+            $this->db->where('id_guru', $id);
+            $this->db->update('guru');
+            redirect('Zone_Admin/guru');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form harus diisi
@@ -527,6 +550,18 @@ class Zone_Admin extends CI_Controller
                 $filename = $uploadData['file_name'];
                 $this->db->set('foto_siswa', $filename);
             }
+            $this->db->where('id_siswa', $id);
+            $this->db->update('siswa');
+            redirect('Zone_Admin/siswa');
+        } else if (($nama_siswa != '') && ($alamat != '') && ($prestasi != '') && ($tahun_masuk != '') && ($gambar == '')) {
+            $ambilData = $this->db->get_where('siswa', ['id_siswa' => $id])->row_array();
+            $old_image =  $ambilData['foto_siswa'];
+
+            $this->db->set('nama_siswa', $nama_siswa);
+            $this->db->set('alamat', $alamat);
+            $this->db->set('prestasi', $prestasi);
+            $this->db->set('tahun_masuk', $tahun_masuk);
+            $this->db->set('foto_siswa', $old_image);
             $this->db->where('id_siswa', $id);
             $this->db->update('siswa');
             redirect('Zone_Admin/siswa');
