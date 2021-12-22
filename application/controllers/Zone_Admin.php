@@ -254,6 +254,16 @@ class Zone_Admin extends CI_Controller
               </div>');
         }
     }
+    public function hapus_berita($id)
+    {
+        $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
+        $old_image =  $ambilData['cover_berita'];
+        if ($old_image) {
+            unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
+        }
+        $this->Admin->delete_berita($id);
+        redirect('Zone_Admin/berita');
+    }
 
     public function guru()
     {

@@ -103,4 +103,9 @@ class Admin extends CI_Model
         $id = array('id_berita' => $this->input->post('id_berita'));
         return $this->db->update($this->table_berita, $data, $id);
     }
+    public function delete_berita($id)
+    {
+        $this->db->where('id_berita', $id);
+        return $this->db->delete($this->table_berita);
+    }
 }
