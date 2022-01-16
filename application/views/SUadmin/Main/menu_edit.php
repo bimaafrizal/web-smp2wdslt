@@ -18,7 +18,7 @@
             <div class="card card-primary">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="<?= base_url('Zone_SUAdmin/proses_edit_menu') ?>" method="post">
+                <form action="<?= base_url('Zone_SUAdmin/proses_edit_menu/' . $id_menu) ?>" method="post">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nama_menu">Nama Menu</label>
@@ -42,7 +42,10 @@
                                                                                                                         } ?>" disabled>
 
                         </div>
-                        <?php echo $this->session->flashdata('message'); ?>
+                        <?php if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                            unset($_SESSION['message']);
+                        } ?>
                         <input type="hidden" name="id_menu" value="<?php echo $id_menu; ?>" />
                     </div>
                     <!-- /.card-body -->
