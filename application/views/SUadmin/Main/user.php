@@ -61,6 +61,10 @@
                         <h1>List User</h1>
                         <p class="lead">Ini adalah daftar user yang tersedia.</p>
                         <p>Silakan lakukan manajemen user yang ada dalam list di bawah ini</p>
+                        <?php if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                            unset($_SESSION['message']);
+                        } ?>
                         <a href="<?= base_url('Zone_SUAdmin/registrasi') ?>" class="btn btn-success" role="button" class="btn btn-primary" id="tombolTambah">
                             <i class="fa fa-plus-circle"></i> Tambah Akun
                         </a>

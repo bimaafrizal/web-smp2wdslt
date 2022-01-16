@@ -43,7 +43,10 @@
                             <label for="exampleInputPassword1">Konfirmasi Password</label>
                             <input type="password" class="form-control" id="konfirmPassword" name="konfirmPassword" placeholder="input konfrimasi password">
                         </div>
-                        <?php echo $this->session->flashdata('message'); ?>
+                        <?php if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                            unset($_SESSION['message']);
+                        } ?>
                     </div>
                     <!-- /.card-body -->
 
