@@ -19,7 +19,7 @@ class Zone_Admin extends CI_Controller
     {
         $data = $this->Admin->ambil_data_kategori();
         $arrayData = array(
-            'datas' => $data
+            'deni' => $data
         );
 
         $this->load->view('SUadmin/Nav/header2');
