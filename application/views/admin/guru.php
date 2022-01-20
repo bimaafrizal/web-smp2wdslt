@@ -66,6 +66,16 @@
                         </a>
                         <div class="row mb-3">
                         </div>
+                        <style>
+                            .card-img-top {
+                                width: 100%;
+                                height: 15vw;
+                                object-fit: cover;
+                            }
+                        </style>
+
+                        <div class="row mb-3">
+                        </div>
                         <div class="row mb-3">
                             <div class="col-1 themed-grid-col">#</div>
                             <div class="col-2 themed-grid-col">Foto Guru</div>
@@ -75,24 +85,49 @@
                             <div class="col-2 themed-grid-col">Email</div>
                             <div class="col-2 themed-grid-col">AKSI</div>
                         </div>
-                        <?php
-                        $i = 1;
-                        foreach ($datas as $data) {
-                        ?>
-                            <div class="row mb-3">
-                                <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
-                                <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="" class="img-thumbnail" width="500px"></div>
-                                <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->nama_guru; ?> </div>
-                                <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->nip; ?></div>
-                                <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?> </div>
-                                <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->email; ?></div>
-                                <div class="col-2 themed-grid-col">
-                                    <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
-                                    <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
-                                </div>
-                            </div>
 
-                        <?php } ?>
+                        <div class="card-deck mb-5 mt-3 ">
+                            <div class="row">
+                                <?php
+                                $i = 1;
+                                foreach ($datas as $data) {
+                                ?>
+
+                                    <div class="row mb-3">
+                                        <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
+                                        <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="" class="img-thumbnail" width="500px"></div>
+                                        <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->nama_guru; ?> </div>
+                                        <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->nip; ?></div>
+                                        <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?> </div>
+                                        <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->email; ?></div>
+                                        <div class="col-2 themed-grid-col">
+                                            <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
+                                            <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-4 mb-3 ">
+                                        <div class="card">
+                                            <img class="card-img-top" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
+                                            <div class="card-body">
+                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
+                                                <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
+                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
+                                                <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
+                                                <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                <?php } ?>
+                            </div>
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>

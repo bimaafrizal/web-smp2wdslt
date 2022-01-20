@@ -5,12 +5,35 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('LoginModel');
+        $this->load->model('Admin');
     }
 
     public function index()
     {
 
         $this->load->view('index/index');
+        $this->load->view('index/footer');
+    }
+
+    public function dataguru()
+    {
+        $data = $this->Admin->ambil_data_guru();
+        $arrayData = array(
+            'datas' => $data
+        );
+
+        $this->load->view('index/dataguru', $arrayData);
+        $this->load->view('index/footer');
+    }
+
+    public function datasiswa()
+    {
+        $data = $this->Admin->ambil_data_siswa();
+        $arrayData = array(
+            'datas' => $data
+        );
+
+        $this->load->view('index/datasiswa', $arrayData);
         $this->load->view('index/footer');
     }
 
