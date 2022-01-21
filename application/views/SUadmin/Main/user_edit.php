@@ -18,29 +18,35 @@
             <div class="card card-primary">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="<?= base_url('Zone_SUAdmin/proses_edit_user') ?>" method="post">
+                <form action="<?= base_url('Zone_SUAdmin/proses_edit_menu/' . $id_menu) ?>" method="post">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="user">Username</label>
-                            <input type="text" class="form-control" id="user" name="user" placeholder="username(email anda)" value="<?= $user ?>">
+                            <label for="nama_menu">Nama Menu</label>
+                            <input type="text" class="form-control" id="nama_menu" name="nama_menu" placeholder="Nama menu" value="<?= $nama_menu ?>">
                         </div>
                         <div class="form-group">
-                            <label for="namaPengguna">Nama Pengguna</label>
-                            <input type="text" class="form-control" id="namaPengguna" name="namaPengguna" placeholder="Nama anda" value="<?= $nama_pengguna ?>">
+                            <label for="url">Url</label>
+                            <input type="text" class="form-control" id="url" name="url" placeholder="url...." value="<?= $url ?>" disabled>
                         </div>
                         <div class="form-group">
+                            <label for="icon">Icon</label>
+                            <input type="text" class="form-control" id="icon" name="icon" placeholder="Icon" value="<?= $icon ?>">
+                            <p>Icon bisa didapat di <a href="https://fontawesome.com/">Font Awesome</a> </p>
+                        </div>
+                        <div class="form-group" disabled>
                             <label for="peran">Peran: </label>
-                            <select class="form-control" id="peran" name="peran">
-                                <option value="1">Super Admin</option>
-                                <option value="2">Admin</option>
-                            </select>
+                            <input type="text" class="form-control" id="peran" name="peran" placeholder="peran" value="<?php if ($peran) {
+                                                                                                                            echo "Super Admin";
+                                                                                                                        } else {
+                                                                                                                            echo "Admin";
+                                                                                                                        } ?>" disabled>
+
                         </div>
-                        <div class="form-group">
-                            <label for="password"> Password </label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="password" placeholder="keep your password">
-                        </div>
-                        <?php echo $this->session->flashdata('message'); ?>
-                        <input type="hidden" name="id_user" value="<?php echo $id_user; ?>" />
+                        <?php if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                            unset($_SESSION['message']);
+                        } ?>
+                        <input type="hidden" name="id_menu" value="<?php echo $id_menu; ?>" />
                     </div>
                     <!-- /.card-body -->
 

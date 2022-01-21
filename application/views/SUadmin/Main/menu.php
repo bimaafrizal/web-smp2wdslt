@@ -61,7 +61,10 @@
                         <h1>List Menu</h1>
                         <p class="lead">Ini adalah daftar menu yang tersedia.</p>
                         <p>Silakan lakukan manajemen menu yang ada dalam list di bawah ini</p>
-
+                        <?php if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                            unset($_SESSION['message']);
+                        } ?>
                         <div class="row mb-3">
                         </div>
                         <div class="row mb-3">

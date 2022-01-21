@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_destroy() ?>
 
 <head>
     <meta charset="utf-8">
