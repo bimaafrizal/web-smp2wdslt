@@ -17,7 +17,22 @@ class Login extends CI_Controller
 
     public function dataguru()
     {
+        // $data = $this->LoginModel->ambil_data_guru();
         $data = $this->Admin->ambil_data_guru();
+        // $data2 = count($data);
+
+        // var_dump($data2);
+        // die;
+
+        // if ($data) {
+        //     $arrayData = array(
+        //         'id_guru' => $data->id_guru,
+        //         'nama_guru' => $data->nama_guru,
+        //         'nip' => $data->nip,
+        //         'alamat' => $data->alamat,
+        //         'foto_guru' => $data->foto_guru
+        //     );
+        // }
         $arrayData = array(
             'datas' => $data
         );
@@ -29,6 +44,7 @@ class Login extends CI_Controller
     public function datasiswa()
     {
         $data = $this->Admin->ambil_data_siswa();
+        // $data2 = $data.count();
         $arrayData = array(
             'datas' => $data
         );
