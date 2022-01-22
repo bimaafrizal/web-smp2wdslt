@@ -31,7 +31,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
 
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="<?= base_url('Login/index') ?>#home">
                 <img src=" <?= base_url('assets/images/Logo.png') ?>" alt="" width="55px" height="55px" class="d-inline-block align-text-top mt-10"> SPENDAWALI
             </a>
 
@@ -105,7 +105,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                             ?>
                                     <div class="col-4 mb-3 ">
                                         <div class="card">
-                                            <img class="card-img-top" height="300px" height="300px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
+                                            <img class="card-img-top" height="400px" width="200px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
                                             <div class="card-body  mb-2">
                                                 <h3 class="card-title">Nama: <strong><?php echo $data->nama_siswa; ?></strong></h3>
                                                 <p style="color: lightslategrey;" class="card-text">Prestasi: <strong><?php echo $data->prestasi; ?></strong> </p>
@@ -120,7 +120,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                                 foreach ($datas as $data) { ?>
                                     <div class="col-6 mb-3 ">
                                         <div class="card">
-                                            <img class="card-img-top" height="300px" height="300px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
+                                            <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
                                             <div class="card-body  mb-2">
                                                 <h3 class="card-title">Nama: <strong><?php echo $data->nama_siswa; ?></strong></h3>
                                                 <p style="color: lightslategrey;" class="card-text">Prestasi: <strong><?php echo $data->prestasi; ?></strong> </p>
