@@ -61,9 +61,9 @@ class Admin extends CI_Model
         return $this->db->delete($this->table_guru);
     }
 
-    public function ambil_data_siswa()
+    public function ambil_data_siswa($limit, $start)
     {
-        return $this->db->get($this->table_siswa)->result();
+        return $this->db->get($this->table_siswa, $limit, $start)->result();
     }
     public function tambah_siswa($data)
     {

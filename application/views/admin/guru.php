@@ -105,23 +105,6 @@
                                             <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
                                         </div>
                                     </div>
-
-                                    <!-- <div class="col-4 mb-3 ">
-                                        <div class="card">
-                                            <img class="card-img-top" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
-                                                <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
-                                                <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                 <?php } ?>
                             </div>
                         </div>
