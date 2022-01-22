@@ -89,9 +89,9 @@ class Admin extends CI_Model
     {
         return $this->db->insert($this->table_berita, $data);
     }
-    public function ambil_data_berita()
+    public function ambil_data_berita($limit, $start)
     {
-        return $this->db->get($this->table_berita)->result();
+        return $this->db->get($this->table_berita, $limit, $start)->result();
     }
     public function ambil_data_berita_id($id)
     {
