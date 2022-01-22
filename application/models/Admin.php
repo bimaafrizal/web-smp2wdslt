@@ -34,9 +34,9 @@ class Admin extends CI_Model
         return $this->db->delete($this->table_kategori);
     }
 
-    public function ambil_data_guru()
+    public function ambil_data_guru($limit, $start)
     {
-        return $this->db->get($this->table_guru)->result();
+        return $this->db->get($this->table_guru, $limit, $start)->result();
     }
 
     public function tambah_guru($data)
