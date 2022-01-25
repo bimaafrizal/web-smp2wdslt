@@ -135,8 +135,6 @@ class Zone_Admin extends CI_Controller
 
         $this->pagination->initialize($config);
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-        //$data['datas'] = $this->Admin->ambil_data_siswa($config['per_page'], $data['page']);
         $data['datas'] = $this->Admin->ambil_data_berita($config['per_page'], $data['page']);
         $data['pagination'] = $this->pagination->create_links();
         // $arrayData = array(
