@@ -95,53 +95,57 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     <div class="col-lg-12 col-12 text-center mb-5">
                         <h2 data-aos="fade-up">DATA GURU</h2>
                     </div>
-                    
+                    <?php if (count($datas) != null) { ?>
 
-                    <div class="card-deck mb-5 mt-3 ">
-                        <div class="row">
-                            <?php
-                            $i = 1;
+                        <div class="card-deck mb-5 mt-3 ">
+                            <div class="row">
+                                <?php
+                                $i = 1;
 
-                            if (count($datas) >= 3) {
-                                foreach ($datas as $data) {
+                                if (count($datas) >= 3) {
+                                    foreach ($datas as $data) {
 
-                            ?>
-                                    <div class="col-4 mb-3 ">
-                                        <div class="card">
-                                            <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
-                                            <div class="card-body  mb-2">
-                                                <!-- <?php echo count($datas); ?> -->
+                                ?>
+                                        <div class="col-4 mb-3 ">
+                                            <div class="card">
+                                                <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
+                                                <div class="card-body  mb-2">
+                                                    <!-- <?php echo count($datas); ?> -->
 
-                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
-                                                <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
+                                                    <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
+                                                    <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
+                                                    <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
+                                                    <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
+                                                </div>
+
                                             </div>
-
                                         </div>
-                                    </div>
+
+                                    <?php }
+                                } else {
+                                    foreach ($datas as $data) { ?>
+                                        <div class="col-6 mb-3 ">
+                                            <div class="card">
+                                                <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
+                                                <div class="card-body  mb-2">
+                                                    <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
+                                                    <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
+                                                    <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
+                                                    <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
 
                                 <?php }
-                            } else {
-                                foreach ($datas as $data) { ?>
-                                    <div class="col-6 mb-3 ">
-                                        <div class="card">
-                                            <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
-                                            <div class="card-body  mb-2">
-                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
-                                                <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                            <?php }
-                            } ?>
+                                } ?>
+                            </div>
                         </div>
+                    <?php } else { ?>
+                        <div class="col-lg-12 col-12 text-center mb-5">
+                        <h2 data-aos="fade-up">Data Guru Tidak Tersedia</h2>
                     </div>
-
+                    <?php } ?>
 
                 </div>
 

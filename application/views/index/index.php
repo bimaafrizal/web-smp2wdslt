@@ -183,33 +183,39 @@ https://www.tooplate.com/view/2119-gymso-fitness
                 </div>
 
                 <?php
-                foreach ($datas as $data) {
+                if (count($datas) != null) {
+                    foreach ($datas as $data) {
                 ?>
-                    <div class="col-lg-4 col-md-6 col-12 mt-3" data-aos="fade-up" data-aos-delay="400">
-                        <div class="beritas">
-                            <div class="berita">
-                                <div class="class-thumb">
-                                    <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" class="img-fluid" alt="Class">
+                        <div class="col-lg-4 col-md-6 col-12 mt-3" data-aos="fade-up" data-aos-delay="400">
+                            <div class="beritas">
+                                <div class="berita">
+                                    <div class="class-thumb">
+                                        <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" class="img-fluid" alt="Class">
 
-                                    <div class="class-info">
-                                        <h3 class="mb-1"><?php echo $data->judul_berita; ?></h3>
+                                        <div class="class-info">
+                                            <h3 class="mb-1"><?php echo $data->judul_berita; ?></h3>
 
-                                        <span><strong>Oleh</strong> - <?php echo $data->user; ?></span>
-                                        <br>
-                                        <span><strong>Kategori</strong> - <?php echo $data->kategori; ?></span>
-                                        <br>
-                                        <span><strong>Diedit pada :</strong> - <?php echo date('d F Y', $data->tanggal); ?></span>
-                                        <br>
-                                        <br>
+                                            <span><strong>Oleh</strong> - <?php echo $data->user; ?></span>
+                                            <br>
+                                            <span><strong>Kategori</strong> - <?php echo $data->kategori; ?></span>
+                                            <br>
+                                            <span><strong>Diedit pada :</strong> - <?php echo date('d F Y', $data->tanggal); ?></span>
+                                            <br>
+                                            <br>
 
-                                        <!-- <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p> -->
-                                        <a href=" <?= base_url('Login/berita/' . $data->id_berita) ?> " class="btn btn-primary">Baca Selengkapnya</a>
+                                            <!-- <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p> -->
+                                            <a href=" <?= base_url('Login/berita/' . $data->id_berita) ?> " class="btn btn-primary">Baca Selengkapnya</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    <?php }
+                } else { ?>
+                    <div class="col-lg-12 col-12 text-center mb-5">
+                        <h2 data-aos="fade-up" data-aos-delay="200">Data Belum Tersedia</h2>
+                    </div>
                 <?php } ?>
                 <!-- <div class="berita" id="berita"></div>
                 <div class="pagination-link" id="pagination-link"></div> -->
@@ -259,7 +265,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Kirimkan Masukan Anda</h2>
 
                     <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
-                        <input type="text" class="form-control" name="cf-name" placeholder="Name">
+                        <input type="text" class="form-control" name="cf-name" placeholder="Judul">
 
                         <input type="email" class="form-control" name="cf-email" placeholder="Email">
 
