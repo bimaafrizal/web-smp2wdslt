@@ -24,7 +24,8 @@
                             <label for="namaKategori">Nama Kategori Berita</label>
                             <input type="text" class="form-control" id="namaKategori" name="namaKategori" placeholder="Kategori Berita">
                         </div>
-                        <?php echo $this->session->flashdata('message'); ?>
+                        <?php echo $this->session->flashdata('message');
+                        unset($_SESSION['message']) ?>
                     </div>
                     <!-- /.card-body -->
 

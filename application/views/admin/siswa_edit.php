@@ -44,7 +44,8 @@
                         <p>Gunakan format JPG, JPEG, atau PNG</p>
                     </div>
                     <input type="hidden" name="id_siswa" value="<?php echo $id_siswa; ?>" />
-                    <?php echo $this->session->flashdata('message'); ?>
+                    <?php echo $this->session->flashdata('message');
+                    unset($_SESSION['message']) ?>
                 </div>
                 <!-- /.card-body -->
 

@@ -46,7 +46,8 @@
                     </div>
 
 
-                    <?php echo $this->session->flashdata('message'); ?>
+                    <?php echo $this->session->flashdata('message');
+                    unset($_SESSION['message']) ?>
                 </div>
                 <!-- /.card-body -->
 

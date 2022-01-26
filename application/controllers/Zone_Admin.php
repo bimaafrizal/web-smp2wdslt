@@ -37,26 +37,28 @@ class Zone_Admin extends CI_Controller
     }
     public function proses_tambah_kategori()
     {
-        $nama_kategori = $this->input->post('namaKategori');
 
-        if ($nama_kategori != '') {
-            $sql = $this->db->query("SELECT nama_kategori FROM kategori where nama_kategori = '$nama_kategori'");
-            $tes_duplikat = $sql->num_rows();
 
-            if ($tes_duplikat > 1) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                KATEGORI SUDAH ADA
-                </div>');
-                redirect('Zone_Admin/tambah_kategori');
-            } else {
-                $data = [
-                    'nama_kategori' => $nama_kategori
-                ];
-                // var_dump($data);
-                // die;
-                $this->Admin->tambah_kategori($data);
-                redirect('Zone_Admin/kategori');
-            }
+
+
+        $this->form_validation->set_rules('namaKategori', ' Nama Kategori', 'required|is_unique[kategori.nama_kategori]');
+
+        $this->form_validation->set_message('required', '%s Mohon diisi');
+        $this->form_validation->set_message('is_unique', '%s Sudah terdaftar');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> ' . validation_errors() . '</div>');
+            redirect('Zone_Admin/tambah_kategori');
+        } else {
+            $nama_kategori = $this->input->post('namaKategori');
+            $data = [
+                'nama_kategori' => $nama_kategori
+            ];
+            // var_dump($data);
+            // die;
+            $this->Admin->tambah_kategori($data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Kategori berhasil ditambahkan</div>');
+            redirect('Zone_Admin/kategori');
         }
     }
     public function edit_kategori($id)
@@ -74,32 +76,33 @@ class Zone_Admin extends CI_Controller
         $this->load->view('admin/kategori_edit', $data);
         $this->load->view('SUadmin/Nav/footer');
     }
-    public function proses_edit_kategori()
+    public function proses_edit_kategori($id)
     {
         $nama_kategori = $this->input->post('namaKategori');
 
-        if ($nama_kategori != '') {
-            $sql = $this->db->query("SELECT nama_kategori FROM kategori where nama_kategori = '$nama_kategori'");
-            $tes_duplikat = $sql->num_rows();
 
-            if ($tes_duplikat > 1) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Kategori sudah ada
-              </div>');
-                redirect('Zone_Admin/edit_kategori');
-            } else {
-                $data = [
-                    'nama_kategori' => $nama_kategori
-                ];
-                $this->Admin->edit_kategori($data);
-                redirect('Zone_Admin/kategori');
-            }
+        $this->form_validation->set_rules('namaKategori', ' Nama Kategori', 'required|is_unique[kategori.nama_kategori]');
+
+        $this->form_validation->set_message('required', '%s Mohon diisi');
+        $this->form_validation->set_message('is_unique', '%s Sudah terdaftar');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> ' . validation_errors() . '</div>');
+            redirect('Zone_Admin/edit_kategori/' . $id);
+        } else {
+            $data = [
+                'nama_kategori' => $nama_kategori
+            ];
+            $this->Admin->edit_kategori($data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Kategori berhasil diedit</div>');
+            redirect('Zone_Admin/kategori');
         }
     }
 
     function hapus_kategori($id)
     {
         $this->Admin->delete_kategori($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Kategori berhasil dihapus</div>');
         redirect('Zone_Admin/kategori');
     }
 
@@ -162,42 +165,39 @@ class Zone_Admin extends CI_Controller
         $kategori = $this->input->post('kategori');
         $cover = $_FILES['image']['name'];
 
+        $this->form_validation->set_rules('judul', 'Judul', 'required');
+        $this->form_validation->set_rules('isi_berita', 'Isi Berita', 'required');
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required');
 
-        if (($judul != '')  && ($isi_berita != '') && ($cover != '')) {
-            $config['upload_path'] = './assets/imagesData/cover';
-            $config['allowed_types'] = 'jpg|png|jpeg';
-            $config['max_size'] = 50000;
-            $config['max_width']  = 51280;
-            $config['max_height']  = 51280;
-            $config['file_name'] = $_FILES['image']['name'];
-            // $this->load->library('upload', $config);
-            $this->load->library('upload', $config);
+        $config['upload_path'] = './assets/imagesData/cover';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = 50000;
+        $config['max_width']  = 51280;
+        $config['max_height']  = 51280;
+        $config['file_name'] = $_FILES['image']['name'];
+        // $this->load->library('upload', $config);
+        $this->load->library('upload', $config);
 
-            // var_dump($config);
-            // die;
-            if ($this->upload->do_upload('image')) {
-                $uploadData = $this->upload->data();
-                $filename = $uploadData['file_name'];
-                $data = [
-                    'judul_berita' => $judul,
-                    'isi_berita' => $isi_berita,
-                    'tanggal' => time(),
-                    'user' => $this->session->userdata('nama_pengguna'),
-                    'cover_berita' => $filename,
-                    'kategori' => $kategori
-                ];
-
-                $this->Admin->tambah_berita($data);
-                redirect('Zone_Admin/berita');
-            } else {
-                redirect('Zone_Admin/tambah_berita');
-            }
-        } else {
+        // var_dump($config);
+        // die;
+        if (!$this->upload->do_upload('image') && $this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
             redirect('Zone_Admin/tambah_berita');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Semua form harus diisi
-              </div>');
         }
+        $uploadData = $this->upload->data();
+        $filename = $uploadData['file_name'];
+        $data = [
+            'judul_berita' => $judul,
+            'isi_berita' => $isi_berita,
+            'tanggal' => time(),
+            'user' => $this->session->userdata('nama_pengguna'),
+            'cover_berita' => $filename,
+            'kategori' => $kategori
+        ];
+
+        $this->Admin->tambah_berita($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil ditambahkan </div>');
+        redirect('Zone_Admin/berita');
     }
     public function edit_berita($id)
     {
@@ -217,71 +217,47 @@ class Zone_Admin extends CI_Controller
         $this->load->view('admin/berita_edit', $data);
         $this->load->view('SUadmin/Nav/footer');
     }
-    public function proses_edit_berita()
+    public function proses_edit_berita($id)
     {
+        $id = array('id_berita' => $id);
         $judul = $this->input->post('judul');
         $isi_berita = $this->input->post('isi_berita');
         $kategori = $this->input->post('kategori');
         $cover = $_FILES['image']['name'];
-        $tanggal = time();
-        $id = $this->input->post('id_berita');
 
+        $this->form_validation->set_rules('judul', 'Judul', 'required');
+        $this->form_validation->set_rules('isi_berita', 'Isi Berita', 'required');
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required');
 
-        if (($judul != '')  && ($isi_berita != '') && ($cover != '')) {
-            $this->db->set('judul_berita', $judul);
-            $this->db->set('isi_berita', $isi_berita);
-            $this->db->set('kategori', $kategori);
-            $this->db->set('tanggal', $tanggal);
+        $config['upload_path'] = './assets/imagesData/cover';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = 50000;
+        $config['max_width']  = 51280;
+        $config['max_height']  = 51280;
+        $config['file_name'] = $_FILES['image']['name'];
+        // $this->load->library('upload', $config);
+        $this->load->library('upload', $config);
 
-            $config['upload_path'] = './assets/imagesData/cover';
-            $config['allowed_types'] = 'jpg|png|jpeg';
-            $config['max_size'] = 50000;
-            $config['max_width']  = 51280;
-            $config['max_height']  = 51280;
-            $config['file_name'] = $_FILES['image']['name'];
-            // $this->load->library('upload', $config);
-            $this->load->library('upload', $config);
-
-            // var_dump($config);
-            // die;
-            if ($this->upload->do_upload('image')) {
-                $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
-                $old_image =  $ambilData['cover_berita'];
-
-                if ($old_image) {
-                    unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
-                }
-
-                $new_image = $this->upload->data('file_name');
-                $this->db->set('cover_berita', $new_image);
-
-                $uploadData = $this->upload->data();
-                $filename = $uploadData['file_name'];
-                $this->db->set('cover_berita', $filename);
-            } else {
-                redirect('Zone_Admin/edit_berita');
-            }
-            $this->db->where('id_berita', $id);
-            $this->db->update('berita');
-            redirect('Zone_Admin/berita');
-        } else if (($judul != '')  && ($isi_berita != '') && ($cover == '')) {
-            $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
-            $old_image =  $ambilData['cover_berita'];
-
-            $this->db->set('judul_berita', $judul);
-            $this->db->set('isi_berita', $isi_berita);
-            $this->db->set('kategori', $kategori);
-            $this->db->set('tanggal', $tanggal);
-            $this->db->set('cover_berita', $old_image);
-            $this->db->where('id_berita', $id);
-            $this->db->update('berita');
-            redirect('Zone_Admin/berita');
-        } else {
-            redirect('Zone_Admin/edit_berita');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Semua form harus diisi
-              </div>');
+        // var_dump($config);
+        // die;
+        if (!$this->upload->do_upload('image') && $this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
+            redirect('Zone_Admin/tambah_berita');
         }
+        $uploadData = $this->upload->data();
+        $filename = $uploadData['file_name'];
+        $data = [
+            'judul_berita' => $judul,
+            'isi_berita' => $isi_berita,
+            'tanggal' => time(),
+            'user' => $this->session->userdata('nama_pengguna'),
+            'cover_berita' => $filename,
+            'kategori' => $kategori
+        ];
+
+        $this->Admin->edit_berita($id, $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil diedit </div>');
+        redirect('Zone_Admin/berita');
     }
     public function hapus_berita($id)
     {
@@ -291,6 +267,7 @@ class Zone_Admin extends CI_Controller
             unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
         }
         $this->Admin->delete_berita($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil dihapus </div>');
         redirect('Zone_Admin/berita');
     }
 
@@ -385,7 +362,9 @@ class Zone_Admin extends CI_Controller
                     ];
 
                     $this->Admin->tambah_guru($data);
-
+                    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Data berhasil ditambah
+                  </div>');
                     redirect('Zone_Admin/guru');
                 } else {
                     redirect('Zone_Admin/tambah_guru');
@@ -419,8 +398,9 @@ class Zone_Admin extends CI_Controller
         $this->load->view('SUadmin/Nav/footer');
     }
 
-    public function proses_edit_guru()
+    public function proses_edit_guru($id)
     {
+        $id = array('id_guru' => $id);
         $nama_guru = $this->input->post('nama_guru');
         $nip = $this->input->post('nip');
         $alamat = $this->input->post('alamat');
@@ -435,7 +415,7 @@ class Zone_Admin extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 NIP sudah ada
                 </div>');
-                redirect('Zone_Admin/edit_guru');
+                redirect('Zone_Admin/edit_guru/' . $id);
             } else {
                 $this->db->set('nama_guru', $nama_guru);
                 $this->db->set('nip', $nip);
@@ -468,6 +448,9 @@ class Zone_Admin extends CI_Controller
 
                 $this->db->where('id_guru', $id);
                 $this->db->update('guru');
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Data berhasil diedit
+                </div>');
                 redirect('Zone_Admin/guru');
             }
         } else if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '') && ($gambar == '')) {
@@ -485,7 +468,7 @@ class Zone_Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form harus diisi
             </div>');
-            redirect('Zone_Admin/edit_guru');
+            redirect('Zone_Admin/edit_guru/' . $id);
         }
     }
 
@@ -497,6 +480,9 @@ class Zone_Admin extends CI_Controller
             unlink(FCPATH . './assets/imagesData/fotoGuru/' . $old_image);
         }
         $this->Admin->delete_guru($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        Data berhasil dihapus
+      </div>');
         redirect('Zone_Admin/guru');
     }
 
@@ -583,6 +569,9 @@ class Zone_Admin extends CI_Controller
                     'foto_siswa' => $filename
                 ];
                 $this->Admin->tambah_siswa($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data berhasil ditambah
+            </div>');
                 redirect('Zone_Admin/siswa');
             } else {
                 redirect('Zone_Admin/tambah_siswa');
@@ -674,7 +663,7 @@ class Zone_Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form harus diisi
             </div>');
-            redirect('Zone_Admin/edit_siswa');
+            redirect('Zone_Admin/edit_siswa/' . $id);
         }
     }
 
@@ -686,6 +675,9 @@ class Zone_Admin extends CI_Controller
             unlink(FCPATH . './assets/imagesData/fotoSiswa/' . $old_image);
         }
         $this->Admin->delete_siswa($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        Semua form harus diisi
+        </div>');
         redirect('Zone_Admin/siswa');
     }
 }
