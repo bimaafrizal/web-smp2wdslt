@@ -64,7 +64,19 @@
                         <a href="<?= base_url('Zone_Admin/tambah_siswa') ?>" class="btn btn-success" role="button" class="btn btn-primary" id="tombolTambah">
                             <i class="fa fa-plus-circle"></i> Tambah Data
                         </a>
+                        <div class="row mt-3">
+                            <div class="col-5 themed-grid-col">
+                                <?php echo form_open('Zone_Admin/search_siswa') ?>
+                                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
+                            </div>
+                            <div class="col-5 themed-grid-col">
+                                <button type="submit" class="btn btn-primary">Cari</button>
+                            </div>
+                            <?php echo form_close(); ?>
+                        </div>
+
                         <div class="row mb-3">
+
                         </div>
                         <div class="row mb-3">
                             <div class="col-1 themed-grid-col">#</div>

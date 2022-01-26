@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Home</title>
+    <title>Data Guru</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -95,6 +95,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     <div class="col-lg-12 col-12 text-center mb-5">
                         <h2 data-aos="fade-up">DATA GURU</h2>
                     </div>
+                    
 
                     <div class="card-deck mb-5 mt-3 ">
                         <div class="row">
