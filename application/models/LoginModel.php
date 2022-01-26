@@ -23,7 +23,7 @@ class LoginModel extends CI_Model
         $datas = $this->db->get();
         return $datas->result();
     }
-    
+
     public function ambil_data_berita_id($id)
     {
         $this->db->where('id_berita', $id);
@@ -32,7 +32,20 @@ class LoginModel extends CI_Model
 
     public function ambil_data_siswa()
     {
-        return $this->db->get($this->table_siswa)->result();
+        $data = $this->db->get($this->table_siswa);
+        $this->db->order_by('tahun_masuk');
+        return $data->result();
+    }
+    public function search_siswa($keyword)
+    {
+        $this->db->select("*");
+        $this->db->from($this->table_siswa);
+        $this->db->like('nama_siswa', $keyword);
+        $this->db->or_like('alamat', $keyword);
+        $this->db->or_like('prestasi', $keyword);
+        $this->db->or_like('alamat', $keyword);
+        $datas = $this->db->get();
+        return $datas->result();
     }
 
     public function ambil_data_berita_index($limit, $start)

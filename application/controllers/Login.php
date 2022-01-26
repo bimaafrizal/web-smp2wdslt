@@ -108,6 +108,23 @@ class Login extends CI_Controller
         $this->load->view('index/datasiswa', $arrayData);
         $this->load->view('index/footer');
     }
+    public function index_search_siswa()
+    {
+        $keyword = $this->input->post('keyword');
+        var_dump($keyword);
+        die;
+        if ($keyword != '') {
+            $data = $this->LoginModel->search_siswa($keyword);
+            $arrayData = array(
+                'datas' => $data
+            );
+
+            $this->load->view('index/datasiswa', $arrayData);
+            $this->load->view('index/footer');
+        } else {
+            redirect('Login/datasiswa');
+        }
+    }
 
     public function berita($id)
     {

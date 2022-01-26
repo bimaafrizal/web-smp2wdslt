@@ -532,6 +532,7 @@ class Zone_Admin extends CI_Controller
         $this->load->view('SUadmin/Nav/footer');
     }
 
+
     public function tambah_siswa()
     {
         $this->load->view('SUadmin/Nav/header2');

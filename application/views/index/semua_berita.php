@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Home</title>
+    <title>Semua Berita</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
