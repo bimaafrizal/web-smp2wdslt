@@ -20,7 +20,7 @@
             <div class="card card-primary">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <?php echo form_open_multipart('Zone_Admin/proses_edit_berita') ?>
+                <?php echo form_open_multipart('Zone_Admin/proses_edit_berita/' . $id_berita) ?>
                 <div class="card-body">
                     <div class="form-group">
                         <label for="judul">Judul</label>

@@ -49,10 +49,10 @@ class Admin extends CI_Model
         $this->db->where('id_guru', $id);
         return $this->db->get($this->table_guru)->row();
     }
-    public function edit_guru($data)
+    public function edit_guru($id, $data)
     {
-        $id = array('id_guru' => $this->input->post('id_guru'));
-        return $this->db->update($this->table_guru, $data, $id);
+        $this->db->where($id);
+        $this->db->update($this->table_guru, $data, $id);
     }
 
     public function delete_guru($id)
@@ -104,10 +104,10 @@ class Admin extends CI_Model
         $this->db->where('id_berita', $id);
         return $this->db->get($this->table_berita)->row();
     }
-    public function edit_berita($data)
+    public function edit_berita($id, $data)
     {
-        $id = array('id_berita' => $this->input->post('id_berita'));
-        return $this->db->update($this->table_berita, $data, $id);
+        $this->db->where($id);
+        $this->db->update('berita', $data);
     }
     public function delete_berita($id)
     {
