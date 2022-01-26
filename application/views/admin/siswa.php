@@ -61,6 +61,8 @@
                         <h1>List Siswa</h1>
                         <p class="lead">Ini adalah daftar siswa yang tersedia.</p>
                         <p>Silakan lakukan manajemen siswa yang ada dalam list di bawah ini</p>
+                        <?php echo $this->session->flashdata('message');
+                        unset($_SESSION['message']) ?>
                         <a href="<?= base_url('Zone_Admin/tambah_siswa') ?>" class="btn btn-success" role="button" class="btn btn-primary" id="tombolTambah">
                             <i class="fa fa-plus-circle"></i> Tambah Data
                         </a>

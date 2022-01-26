@@ -61,6 +61,8 @@
                         <h1>List Berita</h1>
                         <p class="lead">Ini adalah daftar berita yang tersedia.</p>
                         <p>Silakan lakukan manajemen berita yang ada dalam list di bawah ini</p>
+                        <?php echo $this->session->flashdata('message');
+                        unset($_SESSION['message']) ?>
                         <a href="<?= base_url('Zone_Admin/tambah_berita') ?>" class="btn btn-success" role="button" class="btn btn-primary" id="tombolTambah">
                             <i class="fa fa-plus-circle"></i> Tambah Data
                         </a>

@@ -18,7 +18,7 @@
             <div class="card card-primary">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <?php echo form_open_multipart('Zone_Admin/proses_edit_guru') ?>
+                <?php echo form_open_multipart('Zone_Admin/proses_edit_guru/' . $id_guru) ?>
                 <div class="card-body">
                     <div class="form-group">
                         <label for="nama_guru">Nama Guru</label>
@@ -44,7 +44,8 @@
                         <p>Gunakan format JPG, JPEG, atau PNG</p>
                     </div>
                     <input type="hidden" name="id_guru" id="id_guru" value="<?php echo $id_guru; ?>" />
-                    <?php echo $this->session->flashdata('message'); ?>
+                    <?php echo $this->session->flashdata('message');
+                    unset($_SESSION['message']) ?>
                 </div>
                 <!-- /.card-body -->
 

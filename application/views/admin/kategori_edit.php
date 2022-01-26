@@ -18,13 +18,14 @@
             <div class="card card-primary">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="<?= base_url('Zone_Admin/proses_edit_kategori') ?>" method="post">
+                <form action="<?= base_url('Zone_Admin/proses_edit_kategori/' . $id_kategori) ?>" method="post">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="namaKategori">Nama Kategori Berita</label>
                             <input type="text" class="form-control" id="namaKategori" name="namaKategori" placeholder="Kategori Berita" value="<?= $nama_kategori ?>">
                         </div>
-                        <?php echo $this->session->flashdata('message'); ?>
+                        <?php echo $this->session->flashdata('message');
+                        unset($_SESSION['message']) ?>
                         <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>" />
                     </div>
                     <!-- /.card-body -->
