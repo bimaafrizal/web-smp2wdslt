@@ -61,10 +61,10 @@ class Admin extends CI_Model
         return $this->db->delete($this->table_guru);
     }
 
-    public function ambil_data_siswa($keyword)
+    public function ambil_data_siswa($keyword, $limit, $start)
     {
         if ($keyword == "") {
-            return $this->db->get('siswa')->result();
+            return $this->db->get('siswa', $limit, $start)->result();
         } else {
             $this->db->select('*');
             $this->db->from('siswa');
