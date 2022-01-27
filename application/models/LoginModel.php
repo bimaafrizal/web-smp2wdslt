@@ -8,10 +8,13 @@ class LoginModel extends CI_Model
     public $table_berita = 'berita';
 
 
-    public function ambil_data_guru($keyword)
+    public function ambil_data_guru($limit, $start, $keyword)
     {
         if ($keyword == "") {
-            return $this->db->get($this->table_guru)->result();
+            $this->db->select('*');
+            $this->db->from('guru');
+            $this->db->limit($limit, $start);
+            return $this->db->get()->result();
         } else {
             $this->db->select('*');
             $this->db->from('guru');
@@ -19,6 +22,7 @@ class LoginModel extends CI_Model
             $this->db->or_like('nip', $keyword);
             $this->db->or_like('alamat', $keyword);
             $this->db->or_like('email', $keyword);
+            $this->db->limit($limit, $start);
             return $this->db->get()->result();
         }
     }
@@ -51,13 +55,14 @@ class LoginModel extends CI_Model
         return $this->db->get($this->table_berita)->row();
     }
 
-    public function ambil_data_siswa($keyword)
+    public function ambil_data_siswa($limit, $start, $keyword)
     {
         if ($keyword == "") {
 
-            $data = $this->db->get('siswa');
-            $this->db->order_by('tahun_masuk');
-            return $data->result();
+            $this->db->select('*');
+            $this->db->from('siswa');
+            $this->db->limit($limit, $start);
+            return $this->db->get()->result();
         } else {
             $this->db->select('*');
             $this->db->from('siswa');
@@ -66,6 +71,7 @@ class LoginModel extends CI_Model
             $this->db->or_like('alamat', $keyword);
             $this->db->or_like('prestasi', $keyword);
             $this->db->or_like('tahun_masuk', $keyword);
+            $this->db->limit($limit, $start);
             return $this->db->get()->result();
         }
     }

@@ -131,7 +131,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                         <?php }
                     } else {
                         foreach ($datas as $data) { ?>
-                            <div class="col-12 mb-3 ">
+                            <div class="col-6 mb-3 ">
                                 <div class="card">
                                     <img class="card-img-top" height="250px" width="200px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
                                     <div class="card-body  mb-2">
@@ -144,6 +144,10 @@ https://www.tooplate.com/view/2119-gymso-fitness
                             </div>
                     <?php }
                     } ?>
+                    <div class="col-lg-12 col-12 text-center mb-5 mt-3">
+                        <?php echo $pagination ?>
+
+                    </div>
                 </div>
             </div>
 

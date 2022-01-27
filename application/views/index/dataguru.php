@@ -158,6 +158,10 @@ https://www.tooplate.com/view/2119-gymso-fitness
                             <h2 data-aos="fade-up">Data Guru Tidak Tersedia</h2>
                         </div>
                     <?php } ?>
+                    <div class="col-lg-12 col-12 text-center mb-5 mt-3">
+                        <?php echo $pagination ?>
+
+                    </div>
 
                 </div>
 
