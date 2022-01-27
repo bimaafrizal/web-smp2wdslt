@@ -32,71 +32,46 @@ class Login extends CI_Controller
         $this->load->view('index/footer');
     }
 
-    // public function index_berita()
-    // {
-    //     $config['base_url'] = site_url('Login/index/');
-    //     $config['total_rows'] = $this->db->count_all('guru');
-    //     $config['per_page'] = 3;
-    //     $config['uri_segment'] = 3;
-    //     $config['use_page_numbers'] = TRUE;
-    //     $choice = $config['total_rows'] / $config['per_page'];
-    //     $config['num_links'] = floor($choice);
-    //     $config['first_link'] = 'First';
-    //     $config['last_link'] = 'Last';
-    //     $config['next_link'] = 'Next';
-    //     $config['prev_link'] = 'Prev';
-    //     $config['full_tag_open'] = '<div class="pagging text-center pagination"><nav><ul class="pagination justify-content-center">';
-    //     $config['full_tag_close'] = '</ul></nav></div>';
-    //     $config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
-    //     $config['num_tag_close'] = '</span></li>';
-    //     $config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';
-    //     $config['cur_tag_close'] = '</span></li>';
-    //     $config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
-    //     $config['next_tagl_close'] = '<span aria-hidden="true">&raquo</span></span></li>';
-    //     $config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
-    //     $config['prev_tagl_close'] = '</span>Next</li>';
-    //     $config['first_tagl_open'] = '<li class="page-item"><span class="page-link">';
-    //     $config['first_tagl_close'] = '</span></li>';
-    //     $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
-    //     $config['last_tag_close'] = '</span></li>';
-
-
-    //     $this->pagination->initialize($config);
-    //     $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-    //     //$data['datas'] = $this->Admin->ambil_data_berita($config['per_page'], $data['page']);
-    //     //$data['pagination'] = $this->pagination->create_links();
-    //     $output = array(
-    //         'pagination_link' => $this->pagination->create_links(),
-    //         'berita' => $this->LoginModel->ambil_data_berita_index($config['per_page'], $data['page'])
-    //     );
-    //     echo json_encode($output);
-    // }
 
     public function dataguru()
     {
         $keyword = "";
         $keyword = $this->input->post('keyword');
-        // $data = $this->LoginModel->ambil_data_guru();
-        $data = $this->LoginModel->ambil_data_guru($keyword);
-        // $data2 = count($data);
 
-        // var_dump($data2);
-        // die;
+        $config['base_url'] = site_url('Login/dataguru/');
+        $config['total_rows'] = $this->db->count_all('guru');
+        $config['per_page'] = 15;
+        $config['uri_segment'] = 3;
+        $choice = $config['total_rows'] / $config['per_page'];
+        $config['num_links'] = floor($choice);
+        $config['first_link'] = 'First';
+        $config['last_link'] = 'Last';
+        $config['next_link'] = 'Next';
+        $config['prev_link'] = 'Prev';
+        $config['full_tag_open'] = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul></nav></div>';
+        $config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close'] = '</span></li>';
+        $config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close'] = '</span></li>';
+        $config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close'] = '<span aria-hidden="true">&raquo</span></span></li>';
+        $config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close'] = '</span>Next</li>';
 
-        // if ($data) {
-        //     $arrayData = array(
-        //         'id_guru' => $data->id_guru,
-        //         'nama_guru' => $data->nama_guru,
-        //         'nip' => $data->nip,
-        //         'alamat' => $data->alamat,
-        //         'foto_guru' => $data->foto_guru
-        //     );
-        // }
-        $arrayData = array(
-            'datas' => $data
-        );
+        $config['first_tagl_open'] = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['last_tag_close'] = '</span></li>';
 
-        $this->load->view('index/dataguru', $arrayData);
+
+        $this->pagination->initialize($config);
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data['datas'] = $this->LoginModel->ambil_data_guru($config['per_page'], $data['page'], $keyword);
+        $data['pagination'] = $this->pagination->create_links();
+
+
+        $this->load->view('index/dataguru', $data);
         $this->load->view('index/footer');
     }
 
@@ -104,13 +79,45 @@ class Login extends CI_Controller
     {
         $keyword = "";
         $keyword = $this->input->post('keyword');
-        $data = $this->LoginModel->ambil_data_siswa($keyword);
-        // $data2 = $data.count();
-        $arrayData = array(
-            'datas' => $data
-        );
 
-        $this->load->view('index/datasiswa', $arrayData);
+        $config['base_url'] = site_url('Login/datasiswa/');
+        $config['total_rows'] = $this->db->count_all('siswa');
+        $config['per_page'] = 3;
+        $config['uri_segment'] = 3;
+        $choice = $config['total_rows'] / $config['per_page'];
+        $config['num_links'] = floor($choice);
+        $config['first_link'] = 'First';
+        $config['last_link'] = 'Last';
+        $config['next_link'] = 'Next';
+        $config['prev_link'] = 'Prev';
+        $config['full_tag_open'] = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul></nav></div>';
+        $config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close'] = '</span></li>';
+        $config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close'] = '</span></li>';
+        $config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close'] = '<span aria-hidden="true">&raquo</span></span></li>';
+        $config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close'] = '</span>Next</li>';
+
+        $config['first_tagl_open'] = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['last_tag_close'] = '</span></li>';
+
+
+        $this->pagination->initialize($config);
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data['datas'] = $this->LoginModel->ambil_data_siswa($config['per_page'], $data['page'], $keyword);
+        $data['pagination'] = $this->pagination->create_links();
+        //$data = $this->LoginModel->ambil_data_siswa($keyword);
+        // $data2 = $data.count();
+        // $arrayData = array(
+        //     'datas' => $data
+        // );
+
+        $this->load->view('index/datasiswa', $data);
         $this->load->view('index/footer');
     }
 
@@ -137,7 +144,7 @@ class Login extends CI_Controller
         $keyword = $this->input->post('keyword');
 
         $config['base_url'] = site_url('Login/tampil_semua_berita/');
-        $config['total_rows'] = $this->db->count_all('guru');
+        $config['total_rows'] = $this->db->count_all('berita');
         $config['per_page'] = 9;
         $config['uri_segment'] = 3;
         $choice = $config['total_rows'] / $config['per_page'];
