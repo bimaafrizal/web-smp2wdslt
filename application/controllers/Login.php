@@ -63,7 +63,8 @@ class Login extends CI_Controller
                         'password' => $cekdb['password'],
                         'nama_pengguna' => $cekdb['nama_pengguna'],
                         'is_aktif' => $cekdb['is_aktif'],
-                        'peran' => $cekdb['peran']
+                        'peran' => $cekdb['peran'],
+                        'status' => 'login'
                     );
                     // var_dump($data);
                     // die;
