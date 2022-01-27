@@ -64,6 +64,7 @@ class Admin extends CI_Model
     public function ambil_data_siswa($keyword, $limit, $start)
     {
         if ($keyword == "") {
+
             return $this->db->get('siswa', $limit, $start)->result();
         } else {
             $this->db->select('*');
