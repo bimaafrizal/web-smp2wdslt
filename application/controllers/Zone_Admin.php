@@ -135,10 +135,11 @@ class Zone_Admin extends CI_Controller
         $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
         $config['last_tag_close'] = '</span></li>';
 
-
+        $keyword = "";
+        $keyword = $this->input->post('keyword');
         $this->pagination->initialize($config);
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['datas'] = $this->Admin->ambil_data_berita($config['per_page'], $data['page']);
+        $data['datas'] = $this->Admin->ambil_data_berita($keyword, $config['per_page'], $data['page']);
         $data['pagination'] = $this->pagination->create_links();
         // $arrayData = array(
         //     'datas' => $data
@@ -299,11 +300,13 @@ class Zone_Admin extends CI_Controller
         $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
         $config['last_tag_close'] = '</span></li>';
 
+        $keyword = "";
+        $keyword = $this->input->post('keyword');
 
         $this->pagination->initialize($config);
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $data['datas'] = $this->Admin->ambil_data_guru($config['per_page'], $data['page']);
+        $data['datas'] = $this->Admin->ambil_data_guru($keyword, $config['per_page'], $data['page']);
         $data['pagination'] = $this->pagination->create_links();
 
         // $arrayData = array(

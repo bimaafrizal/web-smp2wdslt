@@ -76,7 +76,17 @@ if ($this->session->userdata('peran') == 2) { ?>
                             </a>
                             <div class="row mb-3">
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mt-3">
+                                <div class="col-5 themed-grid-col">
+                                    <?php echo form_open('Zone_Admin/berita') ?>
+                                    <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
+                                </div>
+                                <div class="col-5 themed-grid-col">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </div>
+                                <?php echo form_close(); ?>
+                            </div>
+                            <div class="row mb-3 mt-3">
                                 <div class="col-1 themed-grid-col">#</div>
                                 <div class="col-1 themed-grid-col">Judul Berita</div>
                                 <div class="col-2 themed-grid-col">Cover Berita</div>
@@ -87,10 +97,10 @@ if ($this->session->userdata('peran') == 2) { ?>
                                 <div class="col-1 themed-grid-col">AKSI</div>
                             </div>
                             <?php
-                            $i = 1;
-                            foreach ($datas as $data) {
-                            ?>
-                                <div class="row mb-3">
+                                $i = 1;
+                                foreach ($datas as $data) {
+                                    ?>
+                                    <div class="row mb-3">
                                     <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->judul_berita; ?> </div>
                                     <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" alt="" class="img-thumbnail" width="500px"></div>
@@ -102,19 +112,19 @@ if ($this->session->userdata('peran') == 2) { ?>
                                         <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_berita/' . $data->id_berita) ?>" role="button">Edit</a>
                                         <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_berita/' . $data->id_berita) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
                                     </div>
-                                </div>
-                            <?php } ?>
-                            <div>
-                                <div class="row">
-                                    <div class="col">
-                                        <?php echo $pagination ?>
-                                    </div>
+                            </div>
+                        <?php } ?>
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <?php echo $pagination ?>
                                 </div>
                             </div>
+                        </div>
 
-                  
+
+                        </div>
                     </div>
-                </div>
             </main>
     </body>
 
