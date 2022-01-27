@@ -518,8 +518,9 @@ class Zone_Admin extends CI_Controller
 
         $this->pagination->initialize($config);
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-        $data['datas'] = $this->Admin->ambil_data_siswa($config['per_page'], $data['page']);
+        $keyword = "";
+        $keyword = $this->input->post('keyword');
+        $data['datas'] = $this->Admin->ambil_data_siswa($keyword, $config['per_page'], $data['page']);
         $data['pagination'] = $this->pagination->create_links();
 
         // $data = $this->Admin->ambil_data_siswa();
