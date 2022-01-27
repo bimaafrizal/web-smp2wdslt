@@ -218,9 +218,9 @@ class Zone_Admin extends CI_Controller
         $this->load->view('admin/berita_edit', $data);
         $this->load->view('SUadmin/Nav/footer');
     }
-    public function proses_edit_berita($id)
+    public function proses_edit_berita($id_berita)
     {
-        $id = array('id_berita' => $id);
+        $id = array('id_berita' => $id_berita);
         $judul = $this->input->post('judul');
         $isi_berita = $this->input->post('isi_berita');
         $kategori = $this->input->post('kategori');
@@ -230,36 +230,69 @@ class Zone_Admin extends CI_Controller
         $this->form_validation->set_rules('isi_berita', 'Isi Berita', 'required');
         $this->form_validation->set_rules('kategori', 'Kategori', 'required');
 
-        $config['upload_path'] = './assets/imagesData/cover';
-        $config['allowed_types'] = 'jpg|png|jpeg';
-        $config['max_size'] = 50000;
-        $config['max_width']  = 51280;
-        $config['max_height']  = 51280;
-        $config['file_name'] = $_FILES['image']['name'];
-        // $this->load->library('upload', $config);
-        $this->load->library('upload', $config);
+        if ($judul != '' && $isi_berita != '' && $cover != '') {
+            $config['upload_path'] = './assets/imagesData/cover/';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['max_size'] = 50000;
+            $config['max_width']  = 51280;
+            $config['max_height']  = 51280;
+            $config['file_name'] = $_FILES['image']['name'];
+            $this->load->library('upload', $config);
+            // var_dump($config);
+            // die;
+            if ($this->upload->do_upload('image') && $this->form_validation->run() == true) {
+                $ambilData = $this->db->get_where('berita', ['id_berita' => $id_berita])->row_array();
+                $old_image =  $ambilData['cover_berita'];
 
-        // var_dump($config);
-        // die;
-        if (!$this->upload->do_upload('image') && $this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
-            redirect('Zone_Admin/tambah_berita');
+                // var_dump($old_image);
+                // die;
+                if ($old_image) {
+                    unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
+                }
+                // $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
+                // redirect('Zone_Admin/edit_berita');
+                $new_image = $this->upload->data('file_name');
+                // $this->db->set('foto_guru', $new_image);
+
+                //$uploadData = $this->upload->data();
+                // $filename = $uploadData['file_name'];
+                $data = [
+                    'judul_berita' => $judul,
+                    'isi_berita' => $isi_berita,
+                    'tanggal' => time(),
+                    'user' => $this->session->userdata('nama_pengguna'),
+                    'cover_berita' => $new_image,
+                    'kategori' => $kategori
+                ];
+                $this->Admin->edit_berita($id, $data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil diedit </div>');
+                redirect('Zone_Admin/berita');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
+                redirect('Zone_Admin/edit_berita/' . $id_berita);
+            }
+        } else if ($judul != '' && $isi_berita != '' && $cover == '') {
+            $ambilData = $this->db->get_where('berita', ['id_berita' => $id_berita])->row_array();
+            $old_image =  $ambilData['cover_berita'];
+            $data = [
+                'judul_berita' => $judul,
+                'isi_berita' => $isi_berita,
+                'tanggal' => time(),
+                'user' => $this->session->userdata('nama_pengguna'),
+                'cover_berita' => $old_image,
+                'kategori' => $kategori
+            ];
+            $this->Admin->edit_berita($id, $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil diedit </div>');
+            redirect('Zone_Admin/berita');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Semua form wajib diisi(kecuali gambar cover)
+            </div>');
+            redirect('Zone_Admin/edit_berita/' . $id_berita);
         }
-        $uploadData = $this->upload->data();
-        $filename = $uploadData['file_name'];
-        $data = [
-            'judul_berita' => $judul,
-            'isi_berita' => $isi_berita,
-            'tanggal' => time(),
-            'user' => $this->session->userdata('nama_pengguna'),
-            'cover_berita' => $filename,
-            'kategori' => $kategori
-        ];
-
-        $this->Admin->edit_berita($id, $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil diedit </div>');
-        redirect('Zone_Admin/berita');
     }
+
     public function hapus_berita($id)
     {
         $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
