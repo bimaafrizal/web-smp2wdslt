@@ -99,7 +99,9 @@ class Login extends CI_Controller
 
     public function datasiswa()
     {
-        $data = $this->LoginModel->ambil_data_siswa();
+        $keyword = "";
+        $keyword = $this->input->post('keyword');
+        $data = $this->LoginModel->ambil_data_siswa($keyword);
         // $data2 = $data.count();
         $arrayData = array(
             'datas' => $data
