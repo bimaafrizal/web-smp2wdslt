@@ -10,6 +10,7 @@ class Login extends CI_Controller
 
     public function index()
     {
+        $keyword = "";
         $config['base_url'] = site_url('Login/index/');
         $config['total_rows'] = $this->db->count_all('guru');
         $config['per_page'] = 3;
@@ -19,7 +20,7 @@ class Login extends CI_Controller
 
         $this->pagination->initialize($config);
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['datas'] = $this->LoginModel->ambil_data_berita($config['per_page'], $data['page']);
+        $data['datas'] = $this->LoginModel->ambil_data_berita($config['per_page'], $data['page'], $keyword);
         $data['pagination'] = $this->pagination->create_links();
 
         // $data = $this->LoginModel->ambil_data_berita();
