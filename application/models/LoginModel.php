@@ -30,12 +30,26 @@ class LoginModel extends CI_Model
         return $this->db->get($this->table_berita)->row();
     }
 
-    public function ambil_data_siswa()
+    public function ambil_data_siswa($keyword)
     {
-        $data = $this->db->get($this->table_siswa);
-        $this->db->order_by('tahun_masuk');
-        return $data->result();
+        if ($keyword == "") {
+
+            $data = $this->db->get('siswa');
+            $this->db->order_by('tahun_masuk');
+            return $data->result();
+        } else {
+            $this->db->select('*');
+            $this->db->from('siswa');
+            $this->db->order_by('tahun_masuk');
+            $this->db->like('nama_siswa', $keyword);
+            $this->db->or_like('alamat', $keyword);
+            $this->db->or_like('prestasi', $keyword);
+            $this->db->or_like('tahun_masuk', $keyword);
+            return $this->db->get()->result();
+        }
     }
+
+
     public function search_siswa($keyword)
     {
         $this->db->select("*");
