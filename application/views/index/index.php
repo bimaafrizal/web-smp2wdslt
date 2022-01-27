@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?> ">
     <link rel="stylesheet" href="<?= base_url('assets/css/font-awesome.min.css') ?> ">
     <link rel="stylesheet" href="<?= base_url('assets/css/aos.css') ?>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href=" <?= base_url('assets/css/tooplate-gymso-style.css') ?>">
@@ -31,7 +32,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
 
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="#home">
                 <img src=" <?= base_url('assets/images/Logo.png') ?>" alt="" width="55px" height="55px" class="d-inline-block align-text-top mt-10"> SPENDAWALI
             </a>
 
@@ -181,22 +182,39 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     <h2 data-aos="fade-up" data-aos-delay="200">Berita Terkini</h2>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
-                    <div class="class-thumb">
-                        <img src=" <?= base_url('assets/images/pramuka2.jpeg') ?> " class="img-fluid" alt="Class">
+                <?php
+                foreach ($datas as $data) {
+                ?>
+                    <div class="col-lg-4 col-md-6 col-12 mt-3" data-aos="fade-up" data-aos-delay="400">
+                        <div class="beritas">
+                            <div class="berita">
+                                <div class="class-thumb">
+                                    <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" class="img-fluid" alt="Class">
 
-                        <div class="class-info">
-                            <h3 class="mb-1">Press Release</h3>
+                                    <div class="class-info">
+                                        <h3 class="mb-1"><?php echo $data->judul_berita; ?></h3>
 
-                            <span><strong>Oleh</strong> - Bima</span>
+                                        <span><strong>Oleh</strong> - <?php echo $data->user; ?></span>
+                                        <br>
+                                        <span><strong>Kategori</strong> - <?php echo $data->kategori; ?></span>
+                                        <br>
+                                        <span><strong>Diedit pada :</strong> - <?php echo date('d F Y', $data->tanggal); ?></span>
+                                        <br>
+                                        <br>
 
-                            <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                            <a href=" <?= base_url('Login/berita') ?> " class="btn btn-primary">Baca Selengkapnya</a>
+                                        <!-- <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p> -->
+                                        <a href=" <?= base_url('Login/berita/' . $data->id_berita) ?> " class="btn btn-primary">Baca Selengkapnya</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
+                <?php } ?>
+                <!-- <div class="berita" id="berita"></div>
+                <div class="pagination-link" id="pagination-link"></div> -->
+
+                <!-- <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
                     <div class="class-thumb">
                         <img src=" <?= base_url('assets/images/halaman.jpg') ?> " class="img-fluid" alt="Class">
 
@@ -220,6 +238,11 @@ https://www.tooplate.com/view/2119-gymso-fitness
                             <a href=" <?= base_url('Login/berita') ?> " class="btn btn-primary">Baca Selengkapnya</a>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="col-lg-12 col-12 text-center mb-5 mt-5">
+                    <!-- <h2>Berita Terkini</h2> -->
+                    <a href="<?= base_url('Login/tampil_semua_berita') ?>" data-aos="fade-up" data-aos-delay="200" type="button" class="btn btn-success">Lihat Semua</a>
                 </div>
             </div>
         </div>
@@ -275,6 +298,57 @@ https://www.tooplate.com/view/2119-gymso-fitness
     <script src=" <?= base_url('assets/js/aos.js') ?> "></script>
     <script src=" <?= base_url('assets/js/smoothscroll.js') ?>"></script>
     <script src=" <?= base_url('assets/js/custom.js') ?> "></script>
+
+    <!-- <script>
+        $(document).ready(function() {
+            function load_berita(page) {
+                $.ajax({
+                    url: "<?php base_url('Login/index_berita'); ?>" + page,
+                    method: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        $('#berita').html(data.berita);
+                        $('#pagination_link').html(data.pagination_link);
+                    }
+                });
+            }
+            load_berita(1);
+
+            $(document).on("click", ".pagination li a", function(event) {
+                event.preventDefault();
+                var page = $(this).data("ci-pagination-page");
+                load_berita(page);
+            });
+        });
+    </script> -->
+
+    <!-- <script>
+        $(document).ready(function() {
+            $('.berita .beritas').hide();
+        })
+
+        $(document).ready(function() {
+            $('.berita .beritas').hide();
+        })
+        $('.berita').slice(0, 3).show()
+
+        $('.beritas').children('.berita:lt(3)').show();
+
+        $('.loadMore').click(function(e) {
+            $('.beritas').children('.berita:hidden:lt(3)').show();
+        });
+
+
+        //$('.loadMore')
+        // $(".berita").slice(0, 3).show();
+        // $(".loadMore").on("click", function() {
+        //     $(".berita:hidden").slice(0, 3).show();
+
+        //     if ($(".berita").length == 0) {
+        //         $(".loadMore").fadeOut();
+        //     }
+        // })
+    </script> -->
 
 </body>
 

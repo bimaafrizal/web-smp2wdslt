@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Home</title>
+    <title>Data Guru</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -31,7 +31,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
 
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href=" <?= base_url('Login/index') ?>#home">
                 <img src=" <?= base_url('assets/images/Logo.png') ?>" alt="" width="55px" height="55px" class="d-inline-block align-text-top mt-10"> SPENDAWALI
             </a>
 
@@ -47,19 +47,19 @@ https://www.tooplate.com/view/2119-gymso-fitness
                         </a>
                     </div>
                     <li class="nav-item">
-                        <a href="#home" class="nav-link smoothScroll">Home</a>
+                        <a href=" <?= base_url('Login/index') ?>#home" class="nav-link smoothScroll">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#about" class="nav-link smoothScroll">Visi Misi</a>
+                        <a href=" <?= base_url('Login/index') ?>#about" class="nav-link smoothScroll">Visi Misi</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#class" class="nav-link smoothScroll">Berita</a>
+                        <a href="<?= base_url('Login/index') ?>#class" class="nav-link smoothScroll">Berita</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#contact" class="nav-link smoothScroll">Contact</a>
+                        <a href=" <?= base_url('Login/index') ?>#contact" class="nav-link smoothScroll">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Sekolah</a>
@@ -95,27 +95,50 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     <div class="col-lg-12 col-12 text-center mb-5">
                         <h2 data-aos="fade-up">DATA GURU</h2>
                     </div>
+                    
 
                     <div class="card-deck mb-5 mt-3 ">
                         <div class="row">
                             <?php
                             $i = 1;
-                            foreach ($datas as $data) {
+
+                            if (count($datas) >= 3) {
+                                foreach ($datas as $data) {
+
                             ?>
-                                <div class="col-4 mb-3 ">
-                                    <div class="card">
-                                        <img class="card-img-top" height="200px" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
-                                        <div class="card-body  mb-2">
-                                            <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
-                                            <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
-                                            <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
-                                            <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
+                                    <div class="col-4 mb-3 ">
+                                        <div class="card">
+                                            <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
+                                            <div class="card-body  mb-2">
+                                                <!-- <?php echo count($datas); ?> -->
+
+                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
+                                                <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
+                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
+                                                <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
+                                            </div>
+
                                         </div>
-
                                     </div>
-                                </div>
 
-                            <?php } ?>
+                                <?php }
+                            } else {
+                                foreach ($datas as $data) { ?>
+                                    <div class="col-6 mb-3 ">
+                                        <div class="card">
+                                            <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="Card image cap">
+                                            <div class="card-body  mb-2">
+                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_guru; ?></strong></h3>
+                                                <p style="color: lightslategrey;" class="card-text">NIP: <strong><?php echo $data->nip; ?></strong> </p>
+                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
+                                                <p style="color: lightslategrey;" class="card-text">Email: <strong><?php echo $data->email; ?></strong> </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                            <?php }
+                            } ?>
                         </div>
                     </div>
 

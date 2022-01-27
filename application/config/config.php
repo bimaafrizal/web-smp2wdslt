@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/smpwdslt2/smpwdslt2/';
+$config['base_url'] = 'http://localhost/gitsmp2/web-smp2wdslt/';
 
 /*
 |--------------------------------------------------------------------------
