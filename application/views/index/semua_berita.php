@@ -125,7 +125,12 @@ https://www.tooplate.com/view/2119-gymso-fitness
                                                     <br>
                                                     <span><strong>Kategori</strong> - <?php echo $data->kategori; ?></span>
                                                     <br>
-                                                    <span><strong>Diedit pada :</strong> - <?php echo date('d F Y', $data->tanggal); ?></span>
+                                                    <?php if ($data->tanggal_edit == 0) { ?>
+
+                                                        <span><strong>Dibuat pada :</strong> - <?php echo date('d F Y', $data->tanggal); ?></span>
+                                                    <?php } else { ?>
+                                                        <span><strong>Diedit pada :</strong> - <?php echo date('d F Y', $data->tanggal_edit); ?></span>
+                                                    <?php } ?>
                                                     <br>
                                                     <br>
 

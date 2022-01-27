@@ -132,6 +132,7 @@ class Login extends CI_Controller
                 'cover_berita' => $ambilData->cover_berita,
                 'user' => $ambilData->user,
                 'tanggal' => $ambilData->tanggal,
+                'tanggal_edit' => $ambilData->tanggal_edit,
                 'kategori' => $ambilData->kategori
             );
         }

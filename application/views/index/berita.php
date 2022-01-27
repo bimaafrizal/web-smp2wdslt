@@ -114,7 +114,11 @@
             <div class="row">
                 <div class="col-xl-10 offset-xl-1">
                     <h1><?= $judul_berita ?></h1>
-                    <p>Oleh: <?= $user ?> | diupdate pada <?= $tanggal ?></p>
+                    <?php if ($tanggal_edit == 0) { ?>
+                        <p>Oleh: <?= $user ?> | Dibuat pada <?= date('d F Y', $tanggal); ?></p>
+                    <?php } else { ?>
+                        <p>Oleh: <?= $user ?> | Diedit pada <?= date('d F Y', $tanggal_edit); ?></p>
+                    <?php } ?>
                     <p>Kategori: <?= $kategori ?> </p>
                 </div>
                 <!-- end of col -->

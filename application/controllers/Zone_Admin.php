@@ -191,6 +191,7 @@ class Zone_Admin extends CI_Controller
             'judul_berita' => $judul,
             'isi_berita' => $isi_berita,
             'tanggal' => time(),
+            'tanggal_edit' => 0,
             'user' => $this->session->userdata('nama_pengguna'),
             'cover_berita' => $filename,
             'kategori' => $kategori
@@ -259,7 +260,7 @@ class Zone_Admin extends CI_Controller
                 $data = [
                     'judul_berita' => $judul,
                     'isi_berita' => $isi_berita,
-                    'tanggal' => time(),
+                    'tanggal_edit' => time(),
                     'user' => $this->session->userdata('nama_pengguna'),
                     'cover_berita' => $new_image,
                     'kategori' => $kategori
@@ -277,7 +278,7 @@ class Zone_Admin extends CI_Controller
             $data = [
                 'judul_berita' => $judul,
                 'isi_berita' => $isi_berita,
-                'tanggal' => time(),
+                'tanggal_edit' => time(),
                 'user' => $this->session->userdata('nama_pengguna'),
                 'cover_berita' => $old_image,
                 'kategori' => $kategori

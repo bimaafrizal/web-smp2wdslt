@@ -190,7 +190,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                             <div class="beritas">
                                 <div class="berita">
                                     <div class="class-thumb">
-                                        <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" class="img-fluid" alt="Class">
+                                        <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" class="img-fluid" alt="Class" width="300" height="300">
 
                                         <div class="class-info">
                                             <h3 class="mb-1"><?php echo $data->judul_berita; ?></h3>
@@ -199,7 +199,12 @@ https://www.tooplate.com/view/2119-gymso-fitness
                                             <br>
                                             <span><strong>Kategori</strong> - <?php echo $data->kategori; ?></span>
                                             <br>
-                                            <span><strong>Diedit pada :</strong> - <?php echo date('d F Y', $data->tanggal); ?></span>
+                                            <?php if ($data->tanggal_edit == 0) { ?>
+
+                                                <span><strong>Dibuat pada :</strong> - <?php echo date('d F Y', $data->tanggal); ?></span>
+                                            <?php } else { ?>
+                                                <span><strong>Diedit pada :</strong> - <?php echo date('d F Y', $data->tanggal_edit); ?></span>
+                                            <?php } ?>
                                             <br>
                                             <br>
 
