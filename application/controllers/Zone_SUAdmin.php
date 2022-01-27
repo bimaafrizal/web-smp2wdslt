@@ -62,6 +62,9 @@ class Zone_SUAdmin extends CI_Controller
                     ];
 
                     $this->SUAdmin->tambah_user($data);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    User berhasil ditambah
+                  </div>');
                     redirect('Zone_SUAdmin/user');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -86,6 +89,9 @@ class Zone_SUAdmin extends CI_Controller
             'is_aktif' => $is_aktif
         ];
         $this->SUAdmin->aktifkan_user($data, $id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        User berhasil diaktifkan
+      </div>');
         redirect('Zone_SUAdmin/user');
     }
     public function nonAktifkan($id)
@@ -96,12 +102,18 @@ class Zone_SUAdmin extends CI_Controller
             'is_aktif' => $is_aktif
         ];
         $this->SUAdmin->aktifkan_user($data, $id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        User berhasil dinonaktifkan
+      </div>');
         redirect('Zone_SUAdmin/user');
     }
 
     public function hapus_user($id)
     {
         $this->SUAdmin->delete_user($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        User berhasil dihapus
+      </div>');
         redirect('Zone_SUAdmin/user');
     }
 
@@ -124,7 +136,7 @@ class Zone_SUAdmin extends CI_Controller
         $this->load->view('SUadmin/Nav/footer');
     }
 
-    public function proses_edit_user()
+    public function proses_edit_user($id)
     {
         $user = $this->input->post('user');
         $namaPengguna = $this->input->post('namaPengguna');
@@ -142,7 +154,7 @@ class Zone_SUAdmin extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Email sudah digunakan
               </div>');
-                redirect('Zone_SUAdmin/edit_user');
+                redirect('Zone_SUAdmin/edit_user/' . $id);
             } else {
                 if ($pass == '') {
                     $data = [
@@ -175,7 +187,7 @@ class Zone_SUAdmin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Semua form wajib diisi(kecuali password)
               </div>');
-            redirect('Zone_SUAdmin/edit_user');
+            redirect('Zone_SUAdmin/edit_user/' . $id);
         }
     }
 
@@ -211,7 +223,7 @@ class Zone_SUAdmin extends CI_Controller
         $this->load->view('SUadmin/Main/menu_edit', $data);
         $this->load->view('SUadmin/Nav/footer');
     }
-    public function proses_edit_menu()
+    public function proses_edit_menu($id)
     {
         $nama_menu = $this->input->post('nama_menu');
         $icon = $this->input->post('icon');
@@ -223,7 +235,7 @@ class Zone_SUAdmin extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Nama menu sudah digunakan
               </div>');
-                redirect('Zone_SUAdmin/edit_menu');
+                redirect('Zone_SUAdmin/edit_menu/' . $id);
             } else {
                 $data = [
                     'nama_menu' => $nama_menu,
@@ -232,13 +244,16 @@ class Zone_SUAdmin extends CI_Controller
                 // var_dump($data);
                 // die;
                 $this->SUAdmin->edit_menu($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Menu berhasil diubah
+              </div>');
                 redirect('Zone_SUAdmin/menu');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form wajib diisi
           </div>');
-            redirect('Zone_SUAdmin/edit_menu');
+            redirect('Zone_SUAdmin/edit_menu/' . $id);
         }
     }
 }
