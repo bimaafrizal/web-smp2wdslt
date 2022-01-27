@@ -76,7 +76,7 @@ if ($this->session->userdata('peran') == 2) { ?>
                             </a>
                             <div class="row mt-3">
                                 <div class="col-5 themed-grid-col">
-                                    <?php echo form_open('Zone_Admin/search_siswa') ?>
+                                    <?php echo form_open('Zone_Admin/siswa') ?>
                                     <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
                                 </div>
                                 <div class="col-5 themed-grid-col">

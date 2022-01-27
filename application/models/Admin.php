@@ -61,9 +61,19 @@ class Admin extends CI_Model
         return $this->db->delete($this->table_guru);
     }
 
-    public function ambil_data_siswa($limit, $start)
+    public function ambil_data_siswa($keyword, $limit, $start)
     {
-        return $this->db->get($this->table_siswa, $limit, $start)->result();
+        if ($keyword == "") {
+            return $this->db->get('siswa', $limit, $start)->result();
+        } else {
+            $this->db->select('*');
+            $this->db->from('siswa');
+            $this->db->like('nama_siswa', $keyword);
+            $this->db->or_like('alamat', $keyword);
+            $this->db->or_like('prestasi', $keyword);
+            $this->db->or_like('tahun_masuk', $keyword);
+            return $this->db->get()->result();
+        }
     }
     public function tambah_siswa($data)
     {
@@ -98,7 +108,7 @@ class Admin extends CI_Model
         $data = $this->db->get();
         return $data->result();
     }
-    
+
     public function ambil_data_berita_id($id)
     {
         $this->db->where('id_berita', $id);
