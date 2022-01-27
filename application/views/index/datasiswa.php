@@ -90,72 +90,65 @@ https://www.tooplate.com/view/2119-gymso-fitness
     <!-- ABOUT -->
     <section class="about section" id="about">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md">
-                    <div class="col-lg-12 col-12 text-center mb-5">
-                        <h2 data-aos="fade-up">DATA SISWA</h2>
-                    </div>
-                    <div class="col-lg-12 col-12 mb-5">
-                        <?php echo form_open('Login/index_search_siswa') ?>
-                        <div class="form-inline">
-                            <div class="mb3">
-                                <div class="form-group">
-                                    <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
-                                    <button type="button" class="btn btn-primary">Cari</button>
-                                </div>
+
+            <div class="col-md">
+                <div class="col-lg-12 col-12 text-center mb-5">
+                    <h2 data-aos="fade-up">DATA SISWA</h2>
+                </div>
+                <div class="col-lg-12 col-12 mb-5">
+                    <?php echo form_open('Login/datasiswa') ?>
+                    <div class="form-inline">
+                        <div class="mb3">
+                            <div class="form-group">
+                                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
+                                <button type="button" class="btn btn-primary">Cari</button>
                             </div>
                         </div>
-                        <?php echo form_close(); ?>
                     </div>
+                    <?php echo form_close(); ?>
                 </div>
-                <?php if (count($datas) != null) {
-                ?>
-                    <div class="card-deck mb-5 mt-3 ">
-                        <div class="row">
-                            <?php
-                            $i = 1;
-                            if (count($datas) >= 3) {
-                                foreach ($datas as $data) {
-                            ?>
-                                    <div class="col-4 mb-3 ">
-                                        <div class="card">
-                                            <img class="card-img-top" height="400px" width="200px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
-                                            <div class="card-body  mb-2">
-                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_siswa; ?></strong></h3>
-                                                <p style="color: lightslategrey;" class="card-text">Prestasi: <strong><?php echo $data->prestasi; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Tahun Masuk: <strong><?php echo $data->tahun_masuk; ?></strong> </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                <?php }
-                            } else {
-                                foreach ($datas as $data) { ?>
-                                    <div class="col-6 mb-3 ">
-                                        <div class="card">
-                                            <img class="card-img-top" height="300px" width="50px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
-                                            <div class="card-body  mb-2">
-                                                <h3 class="card-title">Nama: <strong><?php echo $data->nama_siswa; ?></strong></h3>
-                                                <p style="color: lightslategrey;" class="card-text">Prestasi: <strong><?php echo $data->prestasi; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
-                                                <p style="color: lightslategrey;" class="card-text">Tahun Masuk: <strong><?php echo $data->tahun_masuk; ?></strong> </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                            <?php }
-                            } ?>
-                        </div>
-                    </div>
-
-                <?php } else { ?>
-                    <div class="col-lg-12 col-12 text-center mb-5">
-                        <h2 data-aos="fade-up">Data Siswa Belum Tersedia</h2>
-                    </div>
-                <?php } ?>
-
-
             </div>
+
+            <div class="card-deck mb-5 mt-3 ">
+                <div class="row">
+                    <?php
+                    $i = 1;
+                    if (count($datas) >= 3) {
+                        foreach ($datas as $data) {
+                    ?>
+                            <div class="col-4 mb-3 ">
+                                <div class="card">
+                                    <img class="card-img-top" height="250px" width="200px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
+                                    <div class="card-body  mb-2">
+                                        <h3 class="card-title">Nama: <strong><?php echo $data->nama_siswa; ?></strong></h3>
+                                        <p style="color: lightslategrey;" class="card-text">Prestasi: <strong><?php echo $data->prestasi; ?></strong> </p>
+                                        <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
+                                        <p style="color: lightslategrey;" class="card-text">Tahun Masuk: <strong><?php echo $data->tahun_masuk; ?></strong> </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php }
+                    } else {
+                        foreach ($datas as $data) { ?>
+                            <div class="col-12 mb-3 ">
+                                <div class="card">
+                                    <img class="card-img-top" height="250px" width="200px" src="<?= base_url('/assets/imagesData/fotoSiswa/') . $data->foto_siswa ?>" alt="Card image cap">
+                                    <div class="card-body  mb-2">
+                                        <h3 class="card-title">Nama: <strong><?php echo $data->nama_siswa; ?></strong></h3>
+                                        <p style="color: lightslategrey;" class="card-text">Prestasi: <strong><?php echo $data->prestasi; ?></strong> </p>
+                                        <p style="color: lightslategrey;" class="card-text">Alamat: <strong><?php echo $data->alamat; ?></strong> </p>
+                                        <p style="color: lightslategrey;" class="card-text">Tahun Masuk: <strong><?php echo $data->tahun_masuk; ?></strong> </p>
+                                    </div>
+                                </div>
+                            </div>
+                    <?php }
+                    } ?>
+                </div>
+            </div>
+
+
+        </div>
 
 
         </div>
