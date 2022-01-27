@@ -202,8 +202,6 @@ class Zone_Admin extends CI_Controller
     public function edit_berita($id)
     {
         $ambilData = $this->Admin->ambil_data_berita_id($id);
-
-
         if ($ambilData) {
             $data = array(
                 'id_berita' => $ambilData->id_berita,

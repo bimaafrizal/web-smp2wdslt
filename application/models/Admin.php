@@ -34,9 +34,9 @@ class Admin extends CI_Model
         return $this->db->delete($this->table_kategori);
     }
 
-    public function ambil_data_guru()
+    public function ambil_data_guru($limit, $start)
     {
-        return $this->db->get($this->table_guru)->result();
+        return $this->db->get($this->table_guru, $limit, $start)->result();
     }
 
     public function tambah_guru($data)
@@ -61,9 +61,9 @@ class Admin extends CI_Model
         return $this->db->delete($this->table_guru);
     }
 
-    public function ambil_data_siswa()
+    public function ambil_data_siswa($limit, $start)
     {
-        return $this->db->get($this->table_siswa)->result();
+        return $this->db->get($this->table_siswa, $limit, $start)->result();
     }
     public function tambah_siswa($data)
     {
@@ -89,10 +89,16 @@ class Admin extends CI_Model
     {
         return $this->db->insert($this->table_berita, $data);
     }
-    public function ambil_data_berita()
+    public function ambil_data_berita($limit, $start)
     {
-        return $this->db->get($this->table_berita)->result();
+        $this->db->select("*");
+        $this->db->from($this->table_berita);
+        $this->db->order_by("id_berita", "desc");
+        $this->db->limit($limit, $start);
+        $data = $this->db->get();
+        return $data->result();
     }
+    
     public function ambil_data_berita_id($id)
     {
         $this->db->where('id_berita', $id);

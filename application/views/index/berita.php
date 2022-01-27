@@ -43,7 +43,6 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href=" <?= base_url('assets/css/tooplate-gymso-style.css') ?> ">
     <!-- Favicon  -->
-    <link rel="icon" href=" <?= base_url('assets/images/favicon.png') ?> ">
     <link rel="icon" href=" <?= base_url('assets/images/Logo.png') ?> ">
 </head>
 
@@ -54,7 +53,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
 
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="<?= base_url('Login/index') ?>#home">
                 <img src=" <?= base_url('assets/images/Logo.png') ?> " alt="" width="55px" height="55px" class="d-inline-block align-text-top mt-10"> SPENDAWALI
             </a>
 
@@ -85,13 +84,13 @@
                         <a href=" <?= base_url('Login/index') ?>#contact" class="nav-link smoothScroll">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Data Sekolah</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Sekolah</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                            <li><a class="dropdown-item" href="#">Data Guru</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('Login/dataguru'); ?>">Data Guru</a></li>
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>
-                            <li><a class="dropdown-item" href="#">Data Siswa</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('Login/datasiswa'); ?>">Data Siswa</a></li>
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>
@@ -114,8 +113,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-10 offset-xl-1">
-                    <h1>Judul Berita</h1>
-                    <p>Oleh: Bima | diupdate pada 6 Desember 2021</p>
+                    <h1><?= $judul_berita ?></h1>
+                    <p>Oleh: <?= $user ?> | diupdate pada <?= $tanggal ?></p>
+                    <p>Kategori: <?= $kategori ?> </p>
                 </div>
                 <!-- end of col -->
             </div>
@@ -132,7 +132,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-fluid mt-5 mb-3" src=" <?= base_url('assets/styleBerita/article-details-large.jpg') ?> " alt="alternative">
+                    <img class="img-fluid mt-5 mb-3" src="<?= base_url('/assets/imagesData/cover/') . $cover_berita ?>" alt="alternative">
                 </div>
                 <!-- end of col -->
             </div>
@@ -148,8 +148,8 @@
     <div class="ex-basic-1 pt-4">
         <div class="container">
             <div class="row">
-                <div class="col-xl-10 offset-xl-1">
-                    <p>Consulted he eagerness unfeeling deficient existence of. Calling nothing end fertile for venture way boy. Esteem spirit temper too say adieus who direct esteem. It esteems luckily mr or picture placing drawing no. Apartments frequently
+                <?= $isi_berita ?>
+                <!-- <p>Consulted he eagerness unfeeling deficient existence of. Calling nothing end fertile for venture way boy. Esteem spirit temper too say adieus who direct esteem. It esteems luckily mr or picture placing drawing no. Apartments frequently
                         or motionless on reasonable projecting expression. Last sentence of words thus better.</p>
                     <p class="mb-5">Ye on properly handsome returned throwing am no whatever. In without wishing he of picture no exposed talking minutes. Curiosity continual belonging offending so explained it exquisite. Do remember to followed yourself material mr
                         recurred carriage. Way mrs end gave fat skin brown yesterday tall walk fact bed.</p>
@@ -158,18 +158,23 @@
                     <p>High drew west we no or at john. About or given on witty event. Or sociable up material bachelor bringing landlord confined. Busy so many in hung easy find well up. So of exquisite my an explained remainder. Dashwood denoting securing
                         be on perceive my laughing so. Ye on properly handsome returned throwing am no whatever.</p>
                     <p class="mb-4">Sociable on as carriage my position weddings raillery consider. Peculiar trifling absolute and wandered vicinity property yet. The and collecting motionless difficulty son. His hearing staying ten colonel met. Word drew six easy four
-                        dear cold deny. Fulfilled direction use continual set him propriety continued. Saw met applauded favourite deficient.</p>
-                </div>
-                <!-- end of col -->
+                        dear cold deny. Fulfilled direction use continual set him propriety continued. Saw met applauded favourite deficient.</p> -->
             </div>
-            <!-- end of row -->
+            <!-- end of col -->
         </div>
-        <!-- end of container -->
+        <!-- end of row -->
+    </div>
+    <!-- end of container -->
     </div>
     <!-- end of ex-basic-1 -->
     <!-- end of basic -->
 
-
+    <script text="text/javascript">
+        CKEDITOR.replace('isi_berita', {
+            height: 600,
+            filebrowserImageBrowseUrl: "<?= base_url('assets/kcfinder/browse.php'); ?>"
+        });
+    </script>
 
 
 
@@ -177,9 +182,6 @@
 
 
     <!-- Back To Top Button -->
-    <button onclick="topFunction()" id="myBtn">
-        <img src=" <?= base_url('assets/styleBerita/up-arrow.png') ?> " alt="alternative">
-    </button>
     <!-- end of back to top button -->
 
     <!-- Scripts -->
