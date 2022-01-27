@@ -34,9 +34,20 @@ class Admin extends CI_Model
         return $this->db->delete($this->table_kategori);
     }
 
-    public function ambil_data_guru($limit, $start)
+    public function ambil_data_guru($keyword, $limit, $start)
     {
-        return $this->db->get($this->table_guru, $limit, $start)->result();
+        if ($keyword == "") {
+            return $this->db->get($this->table_guru, $limit, $start)->result();
+        } else {
+            $this->db->select('*');
+            $this->db->from('guru');
+            $this->db->like('nama_guru', $keyword);
+            $this->db->or_like('nip', $keyword);
+            $this->db->or_like('alamat', $keyword);
+            $this->db->or_like('email', $keyword);
+            $this->db->limit($limit, $start);
+            return $this->db->get()->result();
+        }
     }
 
     public function tambah_guru($data)
@@ -100,14 +111,26 @@ class Admin extends CI_Model
     {
         return $this->db->insert($this->table_berita, $data);
     }
-    public function ambil_data_berita($limit, $start)
+    public function ambil_data_berita($keyword, $limit, $start)
     {
-        $this->db->select("*");
-        $this->db->from($this->table_berita);
-        $this->db->order_by("id_berita", "desc");
-        $this->db->limit($limit, $start);
-        $data = $this->db->get();
-        return $data->result();
+        if ($keyword == "") {
+            $this->db->select("*");
+            $this->db->from($this->table_berita);
+            $this->db->order_by("id_berita", "desc");
+            $this->db->limit($limit, $start);
+            $datas = $this->db->get();
+            return $datas->result();
+        } else {
+            $this->db->select("*");
+            $this->db->from($this->table_berita);
+            $this->db->like('judul_berita', $keyword);
+            $this->db->or_like('user', $keyword);
+            $this->db->or_like('kategori', $keyword);
+            $this->db->order_by("id_berita", "desc");
+            $this->db->limit($limit, $start);
+            $datas = $this->db->get();
+            return $datas->result();
+        }
     }
 
     public function ambil_data_berita_id($id)

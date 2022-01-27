@@ -76,6 +76,16 @@ if ($this->session->userdata('peran') == 2) { ?>
                             <a href="<?= base_url('Zone_Admin/tambah_guru') ?>" class="btn btn-success" role="button" class="btn btn-primary" id="tombolTambah">
                                 <i class="fa fa-plus-circle"></i> Tambah Data
                             </a>
+                            <div class="row mt-3">
+                                <div class="col-5 themed-grid-col">
+                                    <?php echo form_open('Zone_Admin/guru') ?>
+                                    <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
+                                </div>
+                                <div class="col-5 themed-grid-col">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </div>
+                                <?php echo form_close(); ?>
+                            </div>
                             <div class="row mb-3">
                             </div>
                             <style>
@@ -88,7 +98,7 @@ if ($this->session->userdata('peran') == 2) { ?>
 
                             <div class="row mb-3">
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-3 mt-3">
                                 <div class="col-1 themed-grid-col">#</div>
                                 <div class="col-2 themed-grid-col">Foto Guru</div>
                                 <div class="col-2 themed-grid-col">Nama Guru</div>
@@ -98,28 +108,28 @@ if ($this->session->userdata('peran') == 2) { ?>
                                 <div class="col-2 themed-grid-col">AKSI</div>
                             </div>
 
-                            <div class="card-deck mb-5 mt-3 ">
-                                <div class="row">
-                                    <?php
-                                    $i = 1;
-                                    foreach ($datas as $data) {
-                                    ?>
+                            <!-- <div class="card-deck mb-3 mt-3 ">
+                                <div class="row"> -->
+                            <?php
+                            $i = 1;
+                            foreach ($datas as $data) {
+                            ?>
 
-                                        <div class="row mb-3">
-                                            <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
-                                            <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="" class="img-thumbnail" width="500px"></div>
-                                            <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->nama_guru; ?> </div>
-                                            <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->nip; ?></div>
-                                            <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?> </div>
-                                            <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->email; ?></div>
-                                            <div class="col-2 themed-grid-col">
-                                                <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
-                                                <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
+                                <div class="row mb-3">
+                                    <div class="col-1 themed-grid-col text-wrap"> <?php echo $i++; ?> </div>
+                                    <div class="col-2 themed-grid-col text-wrap"> <img src="<?= base_url('/assets/imagesData/fotoGuru/') . $data->foto_guru ?>" alt="" class="img-thumbnail" width="500px"></div>
+                                    <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->nama_guru; ?> </div>
+                                    <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->nip; ?></div>
+                                    <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?> </div>
+                                    <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->email; ?></div>
+                                    <div class="col-2 themed-grid-col">
+                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
+                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } ?>
+                            <!-- </div>
+                            </div> -->
 
                             <div>
                                 <div class="row">

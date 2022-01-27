@@ -82,7 +82,7 @@ class Login extends CI_Controller
 
         $config['base_url'] = site_url('Login/datasiswa/');
         $config['total_rows'] = $this->db->count_all('siswa');
-        $config['per_page'] = 3;
+        $config['per_page'] = 30;
         $config['uri_segment'] = 3;
         $choice = $config['total_rows'] / $config['per_page'];
         $config['num_links'] = floor($choice);
