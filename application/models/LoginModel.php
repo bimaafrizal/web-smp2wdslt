@@ -8,20 +8,41 @@ class LoginModel extends CI_Model
     public $table_berita = 'berita';
 
 
-    public function ambil_data_guru()
+    public function ambil_data_guru($keyword)
     {
-
-        return $this->db->get($this->table_guru)->result();
+        if ($keyword == "") {
+            return $this->db->get($this->table_guru)->result();
+        } else {
+            $this->db->select('*');
+            $this->db->from('guru');
+            $this->db->like('nama_guru', $keyword);
+            $this->db->or_like('nip', $keyword);
+            $this->db->or_like('alamat', $keyword);
+            $this->db->or_like('email', $keyword);
+            return $this->db->get()->result();
+        }
     }
 
-    public function ambil_data_berita($limit, $start)
+    public function ambil_data_berita($limit, $start, $keyword)
     {
-        $this->db->select("*");
-        $this->db->from($this->table_berita);
-        $this->db->order_by("id_berita", "desc");
-        $this->db->limit($limit, $start);
-        $datas = $this->db->get();
-        return $datas->result();
+        if ($keyword == "") {
+            $this->db->select("*");
+            $this->db->from($this->table_berita);
+            $this->db->order_by("id_berita", "desc");
+            $this->db->limit($limit, $start);
+            $datas = $this->db->get();
+            return $datas->result();
+        } else {
+            $this->db->select("*");
+            $this->db->from($this->table_berita);
+            $this->db->like('judul_berita', $keyword);
+            $this->db->or_like('user', $keyword);
+            $this->db->or_like('kategori', $keyword);
+            $this->db->order_by("id_berita", "desc");
+            $this->db->limit($limit, $start);
+            $datas = $this->db->get();
+            return $datas->result();
+        }
     }
 
     public function ambil_data_berita_id($id)
@@ -47,19 +68,6 @@ class LoginModel extends CI_Model
             $this->db->or_like('tahun_masuk', $keyword);
             return $this->db->get()->result();
         }
-    }
-
-
-    public function search_siswa($keyword)
-    {
-        $this->db->select("*");
-        $this->db->from($this->table_siswa);
-        $this->db->like('nama_siswa', $keyword);
-        $this->db->or_like('alamat', $keyword);
-        $this->db->or_like('prestasi', $keyword);
-        $this->db->or_like('alamat', $keyword);
-        $datas = $this->db->get();
-        return $datas->result();
     }
 
     public function ambil_data_berita_index($limit, $start)

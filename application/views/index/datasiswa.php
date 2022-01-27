@@ -101,7 +101,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                         <div class="mb3">
                             <div class="form-group">
                                 <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
-                                <button type="button" class="btn btn-primary">Cari</button>
+                                <button type="submit" class="btn btn-primary">Cari</button>
                             </div>
                         </div>
                     </div>

@@ -95,7 +95,18 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     <div class="col-lg-12 col-12 text-center mb-5">
                         <h2 data-aos="fade-up">Semua Berita</h2>
                     </div>
-
+                    <div class="col-lg-12 col-12 mb-5">
+                        <?php echo form_open('Login/tampil_semua_berita') ?>
+                        <div class="form-inline">
+                            <div class="mb3">
+                                <div class="form-group">
+                                    <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </div>
+                            </div>
+                        </div>
+                        <?php echo form_close(); ?>
+                    </div>
                     <div class="card-deck mb-5 mt-3 ">
                         <div class="row">
                             <?php

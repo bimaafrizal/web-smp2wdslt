@@ -73,8 +73,10 @@ class Login extends CI_Controller
 
     public function dataguru()
     {
+        $keyword = "";
+        $keyword = $this->input->post('keyword');
         // $data = $this->LoginModel->ambil_data_guru();
-        $data = $this->LoginModel->ambil_data_guru();
+        $data = $this->LoginModel->ambil_data_guru($keyword);
         // $data2 = count($data);
 
         // var_dump($data2);
@@ -110,23 +112,6 @@ class Login extends CI_Controller
         $this->load->view('index/datasiswa', $arrayData);
         $this->load->view('index/footer');
     }
-    public function index_search_siswa()
-    {
-        $keyword = $this->input->post('keyword');
-        var_dump($keyword);
-        die;
-        if ($keyword != '') {
-            $data = $this->LoginModel->search_siswa($keyword);
-            $arrayData = array(
-                'datas' => $data
-            );
-
-            $this->load->view('index/datasiswa', $arrayData);
-            $this->load->view('index/footer');
-        } else {
-            redirect('Login/datasiswa');
-        }
-    }
 
     public function berita($id)
     {
@@ -147,6 +132,9 @@ class Login extends CI_Controller
     }
     public function tampil_semua_berita()
     {
+        $keyword = "";
+        $keyword = $this->input->post('keyword');
+
         $config['base_url'] = site_url('Login/tampil_semua_berita/');
         $config['total_rows'] = $this->db->count_all('guru');
         $config['per_page'] = 9;
@@ -176,7 +164,7 @@ class Login extends CI_Controller
 
         $this->pagination->initialize($config);
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['datas'] = $this->LoginModel->ambil_data_berita($config['per_page'], $data['page']);
+        $data['datas'] = $this->LoginModel->ambil_data_berita($config['per_page'], $data['page'], $keyword);
         $data['pagination'] = $this->pagination->create_links();
 
         $this->load->view('index/semua_berita', $data);
