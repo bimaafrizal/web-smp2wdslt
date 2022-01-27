@@ -52,7 +52,7 @@ class Admin extends CI_Model
     public function edit_guru($id, $data)
     {
         $this->db->where($id);
-        $this->db->update($this->table_guru, $data, $id);
+        $this->db->update('guru', $data);
     }
 
     public function delete_guru($id)

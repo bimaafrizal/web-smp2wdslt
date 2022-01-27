@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php if (!$this->session->userdata('status') == 'login') {
+    header('Location:' . base_url('login/index_login'));
+    exit;
+} ?>
 
 <head>
     <meta charset="utf-8">
