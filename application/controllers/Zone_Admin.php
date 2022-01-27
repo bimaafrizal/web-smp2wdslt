@@ -110,7 +110,7 @@ class Zone_Admin extends CI_Controller
     {
 
         $config['base_url'] = site_url('Zone_Admin/berita/');
-        $config['total_rows'] = $this->db->count_all('guru');
+        $config['total_rows'] = $this->db->count_all('berita');
         $config['per_page'] = 2;
         $config['uri_segment'] = 3;
         $choice = $config['total_rows'] / $config['per_page'];
@@ -490,7 +490,7 @@ class Zone_Admin extends CI_Controller
     public function siswa()
     {
         $config['base_url'] = site_url('Zone_Admin/siswa/');
-        $config['total_rows'] = $this->db->count_all('guru');
+        $config['total_rows'] = $this->db->count_all('siswa');
         $config['per_page'] = 5;
         $config['uri_segment'] = 3;
         $choice = $config['total_rows'] / $config['per_page'];
