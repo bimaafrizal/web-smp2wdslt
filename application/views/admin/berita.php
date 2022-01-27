@@ -91,36 +91,44 @@ if ($this->session->userdata('peran') == 2) { ?>
                                 <div class="col-1 themed-grid-col">Judul Berita</div>
                                 <div class="col-2 themed-grid-col">Cover Berita</div>
                                 <div class="col-3 themed-grid-col">Isi Berita</div>
-                                <div class="col-1 themed-grid-col">Tanggal</div>
-                                <div class="col-2 themed-grid-col">Penulis</div>
+                                <div class="col-1 themed-grid-col">Tanggal Upload</div>
+                                <div class="col-1 themed-grid-col">Tanggal Edit</div>
+                                <div class="col-1 themed-grid-col">Penulis</div>
                                 <div class="col-1 themed-grid-col">Kategori</div>
                                 <div class="col-1 themed-grid-col">AKSI</div>
                             </div>
                             <?php
-                                $i = 1;
-                                foreach ($datas as $data) {
-                                    ?>
-                                    <div class="row mb-3">
+                            $i = 1;
+                            foreach ($datas as $data) {
+                            ?>
+                                <div class="row mb-3">
                                     <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->judul_berita; ?> </div>
                                     <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" alt="" class="img-thumbnail" width="500px"></div>
                                     <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->isi_berita; ?></div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo date('d F Y', $data->tanggal); ?> </div>
-                                    <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->user; ?></div>
+                                    <div class="col-1 themed-grid-col text-wrap"> <?php
+                                                                                    if ($data->tanggal_edit == 0) {
+                                                                                        echo "-";
+                                                                                    } else {
+                                                                                        echo date('d F Y', $data->tanggal_edit);
+                                                                                    }
+                                                                                    ?> </div>
+                                    <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->user; ?></div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->kategori; ?></div>
                                     <div class="col-1 themed-grid-col">
                                         <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_berita/' . $data->id_berita) ?>" role="button">Edit</a>
                                         <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_berita/' . $data->id_berita) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
                                     </div>
-                            </div>
-                        <?php } ?>
-                        <div>
-                            <div class="row">
-                                <div class="col">
-                                    <?php echo $pagination ?>
+                                </div>
+                            <?php } ?>
+                            <div>
+                                <div class="row">
+                                    <div class="col">
+                                        <?php echo $pagination ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
                         </div>
