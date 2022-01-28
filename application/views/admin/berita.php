@@ -105,7 +105,14 @@ if ($this->session->userdata('peran') == 2) { ?>
                                     <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->judul_berita; ?> </div>
                                     <div class="col-2 themed-grid-col"> <img src="<?= base_url('/assets/imagesData/cover/') . $data->cover_berita ?>" alt="" class="img-thumbnail" width="500px"></div>
-                                    <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->isi_berita; ?></div>
+                                    <div class="col-3 themed-grid-col text-wrap"> <?php
+                                                                                    if (strlen($data->isi_berita) <= 500) {
+                                                                                        echo $data->isi_berita;
+                                                                                    } else if(($data->isi_berita) > 500){
+                                                                                        echo substr($data->isi_berita, 0, 500).".....";
+                                                                                    }
+                                                                                    ?> </div>
+
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo date('d F Y', $data->tanggal); ?> </div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php
                                                                                     if ($data->tanggal_edit == 0) {

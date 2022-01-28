@@ -133,8 +133,14 @@ https://www.tooplate.com/view/2119-gymso-fitness
                                                     <?php } ?>
                                                     <br>
                                                     <br>
-
-                                                    <!-- <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p> -->
+                                                    <?php
+                                                    if (strlen($data->isi_berita) <= 300) {
+                                                        echo $data->isi_berita;
+                                                    } else if (($data->isi_berita) > 300) {
+                                                        echo substr($data->isi_berita, 0, 300) . ".....";
+                                                    }
+                                                    ?>
+                                                    <br>
                                                     <a href=" <?= base_url('Login/berita/' . $data->id_berita) ?> " class="btn btn-primary">Baca Selengkapnya</a>
                                                 </div>
                                             </div>
