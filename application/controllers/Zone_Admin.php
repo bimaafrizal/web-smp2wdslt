@@ -37,10 +37,6 @@ class Zone_Admin extends CI_Controller
     }
     public function proses_tambah_kategori()
     {
-
-
-
-
         $this->form_validation->set_rules('namaKategori', ' Nama Kategori', 'required|is_unique[kategori.nama_kategori]');
 
         $this->form_validation->set_message('required', '%s Mohon diisi');
@@ -108,7 +104,6 @@ class Zone_Admin extends CI_Controller
 
     public function berita()
     {
-
         $config['base_url'] = site_url('Zone_Admin/berita/');
         $config['total_rows'] = $this->db->count_all('berita');
         $config['per_page'] = 2;
@@ -138,8 +133,9 @@ class Zone_Admin extends CI_Controller
         $keyword = "";
         $keyword = $this->input->post('keyword');
         $this->pagination->initialize($config);
+        $user = $this->session->userdata('nama_pengguna');
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['datas'] = $this->Admin->ambil_data_berita($keyword, $config['per_page'], $data['page']);
+        $data['datas'] = $this->Admin->ambil_data_berita($keyword, $config['per_page'], $data['page'], $user);
         $data['pagination'] = $this->pagination->create_links();
         // $arrayData = array(
         //     'datas' => $data
@@ -159,6 +155,7 @@ class Zone_Admin extends CI_Controller
         $this->load->view('admin/berita_tambah', $data);
         $this->load->view('SUadmin/Nav/footer');
     }
+
     public function proses_tambah_berita()
     {
         $judul = $this->input->post('judul');

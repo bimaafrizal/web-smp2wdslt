@@ -256,4 +256,154 @@ class Zone_SUAdmin extends CI_Controller
             redirect('Zone_SUAdmin/edit_menu/' . $id);
         }
     }
+
+    public function berita()
+    {
+        $config['base_url'] = site_url('Zone_SUAdmin/berita/');
+        $config['total_rows'] = $this->db->count_all('berita');
+        $config['per_page'] = 2;
+        $config['uri_segment'] = 3;
+        $choice = $config['total_rows'] / $config['per_page'];
+        $config['num_links'] = floor($choice);
+        $config['first_link'] = 'First';
+        $config['last_link'] = 'Last';
+        $config['next_link'] = 'Next';
+        $config['prev_link'] = 'Prev';
+        $config['full_tag_open'] = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul></nav></div>';
+        $config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close'] = '</span></li>';
+        $config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close'] = '</span></li>';
+        $config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close'] = '<span aria-hidden="true">&raquo</span></span></li>';
+        $config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close'] = '</span>Next</li>';
+
+        $config['first_tagl_open'] = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
+        $config['last_tag_close'] = '</span></li>';
+
+        $keyword = "";
+        $keyword = $this->input->post('keyword');
+        $this->pagination->initialize($config);
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data['datas'] = $this->SUAdmin->ambil_data_berita($keyword, $config['per_page'], $data['page']);
+        $data['pagination'] = $this->pagination->create_links();
+        // $arrayData = array(
+        //     'datas' => $data
+        // );
+
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('SUadmin/Main/berita', $data);
+        $this->load->view('SUadmin/Nav/footer');
+    }
+
+
+    public function edit_berita($id)
+    {
+        $ambilData = $this->SUAdmin->ambil_data_berita_id($id);
+        if ($ambilData) {
+            $data = array(
+                'id_berita' => $ambilData->id_berita,
+                'judul_berita' => $ambilData->judul_berita,
+                'isi_berita' => $ambilData->isi_berita,
+                'cover_berita' => $ambilData->cover_berita,
+                'kategoris' => $this->SUAdmin->ambil_data_kategori()
+            );
+        }
+
+        $this->load->view('SUadmin/Nav/header2');
+        $this->load->view('SUadmin/Nav/sidebar');
+        $this->load->view('SUadmin/Main/berita_edit', $data);
+        $this->load->view('SUadmin/Nav/footer');
+    }
+    public function proses_edit_berita($id_berita)
+    {
+        $id = array('id_berita' => $id_berita);
+        $judul = $this->input->post('judul');
+        $isi_berita = $this->input->post('isi_berita');
+        $kategori = $this->input->post('kategori');
+        $cover = $_FILES['image']['name'];
+
+        $this->form_validation->set_rules('judul', 'Judul', 'required');
+        $this->form_validation->set_rules('isi_berita', 'Isi Berita', 'required');
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required');
+
+        if ($judul != '' && $isi_berita != '' && $cover != '') {
+            $config['upload_path'] = './assets/imagesData/cover/';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['max_size'] = 50000;
+            $config['max_width']  = 51280;
+            $config['max_height']  = 51280;
+            $config['file_name'] = $_FILES['image']['name'];
+            $this->load->library('upload', $config);
+            // var_dump($config);
+            // die;
+            if ($this->upload->do_upload('image') && $this->form_validation->run() == true) {
+                $ambilData = $this->db->get_where('berita', ['id_berita' => $id_berita])->row_array();
+                $old_image =  $ambilData['cover_berita'];
+
+                // var_dump($old_image);
+                // die;
+                if ($old_image) {
+                    unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
+                }
+                // $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
+                // redirect('Zone_Admin/edit_berita');
+                $new_image = $this->upload->data('file_name');
+                // $this->db->set('foto_guru', $new_image);
+
+                //$uploadData = $this->upload->data();
+                // $filename = $uploadData['file_name'];
+                $data = [
+                    'judul_berita' => $judul,
+                    'isi_berita' => $isi_berita,
+                    'tanggal_edit' => time(),
+                    'user' => $this->session->userdata('nama_pengguna'),
+                    'cover_berita' => $new_image,
+                    'kategori' => $kategori
+                ];
+                $this->SUAdmin->edit_berita($id, $data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil diedit </div>');
+                redirect('Zone_SUAdmin/berita');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
+                redirect('Zone_SUAdmin/edit_berita/' . $id_berita);
+            }
+        } else if ($judul != '' && $isi_berita != '' && $cover == '') {
+            $ambilData = $this->db->get_where('berita', ['id_berita' => $id_berita])->row_array();
+            $old_image =  $ambilData['cover_berita'];
+            $data = [
+                'judul_berita' => $judul,
+                'isi_berita' => $isi_berita,
+                'tanggal_edit' => time(),
+                'user' => $this->session->userdata('nama_pengguna'),
+                'cover_berita' => $old_image,
+                'kategori' => $kategori
+            ];
+            $this->Admin->edit_berita($id, $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil diedit </div>');
+            redirect('Zone_SUAdmin/berita');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Semua form wajib diisi(kecuali gambar cover)
+            </div>');
+            redirect('Zone_SUAdmin/edit_berita/' . $id_berita);
+        }
+    }
+
+    public function hapus_berita($id)
+    {
+        $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
+        $old_image =  $ambilData['cover_berita'];
+        if ($old_image) {
+            unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
+        }
+        $this->SUAdmin->delete_berita($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil dihapus </div>');
+        redirect('Zone_SUAdmin/berita');
+    }
 }

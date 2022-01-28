@@ -111,11 +111,12 @@ class Admin extends CI_Model
     {
         return $this->db->insert($this->table_berita, $data);
     }
-    public function ambil_data_berita($keyword, $limit, $start)
+    public function ambil_data_berita($keyword, $limit, $start, $user)
     {
         if ($keyword == "") {
             $this->db->select("*");
             $this->db->from($this->table_berita);
+            $this->db->where('user', $user);
             $this->db->order_by("id_berita", "desc");
             $this->db->limit($limit, $start);
             $datas = $this->db->get();
@@ -123,6 +124,7 @@ class Admin extends CI_Model
         } else {
             $this->db->select("*");
             $this->db->from($this->table_berita);
+            $this->db->where('user', $user);
             $this->db->like('judul_berita', $keyword);
             $this->db->or_like('user', $keyword);
             $this->db->or_like('kategori', $keyword);
