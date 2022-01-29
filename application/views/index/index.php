@@ -222,10 +222,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
                             </div>
                         </div>
 
-                        <div class="col-lg-12 col-12 text-center mb-5 mt-5">
-                            <!-- <h2>Berita Terkini</h2> -->
-                            <a href="<?= base_url('Login/tampil_semua_berita') ?>" data-aos="fade-up" data-aos-delay="200" type="button" class="btn btn-success">Lihat Semua</a>
-                        </div>
                     <?php }
                 } else { ?>
                     <div class="col-lg-12 col-12 text-center mb-5">
@@ -233,6 +229,10 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     </div>
                 <?php } ?>
 
+                <div class="col-lg-12 col-12 text-center mb-5 mt-5">
+                    <!-- <h2>Berita Terkini</h2> -->
+                    <a href="<?= base_url('Login/tampil_semua_berita') ?>" data-aos="fade-up" data-aos-delay="200" type="button" class="btn btn-success">Lihat Semua</a>
+                </div>
             </div>
         </div>
     </section>
