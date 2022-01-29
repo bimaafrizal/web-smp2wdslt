@@ -178,7 +178,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                 <div class="ml-auto col-lg-5 col-md-6 col-12">
                     <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Kirimkan Masukan Anda</h2>
 
-                    <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
+                    <form action="<?php base_url('Login/send_email'); ?>" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
                         <input type="text" class="form-control" name="cf-name" placeholder="Name">
 
                         <input type="email" class="form-control" name="cf-email" placeholder="Email">
