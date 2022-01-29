@@ -89,8 +89,9 @@ if ($this->session->userdata('peran') == 2) { ?>
                                     <div class="col-1 themed-grid-col"> <?php echo $i++; ?> </div>
                                     <div class="col-3 themed-grid-col text-wrap"> <?php echo $data->nama_kategori; ?></div>
                                     <div class="col-3 themed-grid-col">
-                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_kategori/' . $data->id_kategori) ?>" role="button">Edit</a>
-                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_kategori/' . $data->id_kategori) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data kategori?')">Hapus</a>
+                                        <?php $id_enkrip = encrypt_url($data->id_kategori); ?>
+                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_kategori/' . $id_enkrip) ?>" role="button">Edit</a>
+                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_kategori/' . $id_enkrip) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data kategori?')">Hapus</a>
                                     </div>
                                 </div>
 
