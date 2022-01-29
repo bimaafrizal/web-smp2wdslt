@@ -108,13 +108,17 @@ if ($this->session->userdata('peran') == 1) { ?>
                                                                                     }
                                                                                     ?> </div>
                                     <div class="col-3 themed-grid-col">
-                                        <?php if ($data->is_aktif == 0) { ?>
-                                            <a class="btn btn-secondary" href=" <?= base_url('Zone_SUAdmin/aktifkan/' . $data->id_user) ?>" role="button">Aktifkan</a>
-                                        <?php  } else { ?>
-                                            <a class="btn btn-info" href="<?= base_url('Zone_SUAdmin/nonAktifkan/' . $data->id_user) ?>" role="button">Non aktifkan</a>
+                                        <?php if ($i == 2) { ?>
+                                            <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_user/' . $data->id_user) ?>" role="button">Edit</a>
+                                        <?php } else { ?>
+                                            <?php if ($data->is_aktif == 0) { ?>
+                                                <a class="btn btn-secondary" href=" <?= base_url('Zone_SUAdmin/aktifkan/' . $data->id_user) ?>" role="button">Aktifkan</a>
+                                            <?php  } else { ?>
+                                                <a class="btn btn-info" href="<?= base_url('Zone_SUAdmin/nonAktifkan/' . $data->id_user) ?>" role="button">Non aktifkan</a>
+                                            <?php } ?>
+                                            <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_user/' . $data->id_user) ?>" role="button">Edit</a>
+                                            <a class="btn btn-danger" href="<?= base_url('Zone_SUAdmin/hapus_user/' . $data->id_user) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus user')">Hapus</a>
                                         <?php } ?>
-                                        <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_user/' . $data->id_user) ?>" role="button">Edit</a>
-                                        <a class="btn btn-danger" href="<?= base_url('Zone_SUAdmin/hapus_user/' . $data->id_user) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus user')">Hapus</a>
                                     </div>
                                 </div>
 

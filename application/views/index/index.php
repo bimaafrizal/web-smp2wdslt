@@ -228,34 +228,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
                         <h2 data-aos="fade-up" data-aos-delay="200">Data Belum Tersedia</h2>
                     </div>
                 <?php } ?>
-                <!-- <div class="berita" id="berita"></div>
-                <div class="pagination-link" id="pagination-link"></div> -->
-
-                <!-- <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
-                    <div class="class-thumb">
-                        <img src=" <?= base_url('assets/images/halaman.jpg') ?> " class="img-fluid" alt="Class">
-
-                        <div class="class-info">
-                            <h3 class="mb-1">Serah Terima Jabatan</h3>
-                            <span><strong>Oleh</strong> - Ki Sudadi</span>
-                            <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                            <a href="<?= base_url('Login/berita') ?>" class="btn btn-primary">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-5 mt-lg-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="600">
-                    <div class="class-thumb">
-                        <img src=" <?= base_url('assets/images/ruang_komputer2.jpeg') ?> " class="img-fluid" alt="Class">
-
-                        <div class="class-info">
-                            <h3 class="mb-1">Hari Raya Idul Adha</h3>
-                            <span><strong>Oleh</strong> - Sariman</span>
-                            <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                            <a href=" <?= base_url('Login/berita') ?> " class="btn btn-primary">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="col-lg-12 col-12 text-center mb-5 mt-5">
                     <!-- <h2>Berita Terkini</h2> -->
@@ -275,12 +247,12 @@ https://www.tooplate.com/view/2119-gymso-fitness
                 <div class="ml-auto col-lg-5 col-md-6 col-12">
                     <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Kirimkan Masukan Anda</h2>
 
-                    <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
-                        <input type="text" class="form-control" name="cf-name" placeholder="Judul">
+                    <form action="<?php base_url('Login/sendemail'); ?>" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
+                        <input type="text" class="form-control" name="judul" id="judul" placeholder="Judul">
 
-                        <input type="email" class="form-control" name="cf-email" placeholder="Email">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
 
-                        <textarea class="form-control" rows="5" name="cf-message" placeholder="Message"></textarea>
+                        <textarea class="form-control" rows="5" name="pesan" id="pesan" placeholder="Message"></textarea>
 
                         <button type="submit" class="form-control" id="submit-button" name="submit">Send Message</button>
                     </form>

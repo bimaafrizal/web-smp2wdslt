@@ -245,4 +245,62 @@ class Login extends CI_Controller
         $this->session->sess_destroy();
         redirect('Login/index_login');
     }
+
+    public function sendemail()
+    {
+        $email = $this->input->post('email');
+        $email_saya = 'smpnwadaslintang2@gamil.com';
+        $judul = $this->input->post('judul');
+        $isi = $this->input->post('pesan');
+
+        // $this->load->library('phpmailer');
+        // $mail = $this->phpmailer->load();
+        // $mail->isSMTP();
+        // $mail->Host     = 'smtp.example.com';
+        // $mail->SMTPAuth = true;
+        // $mail->Username = 'smpnwadaslintang2@gamil.com';
+        // $mail->Password = '20306858';
+        // $mail->SMTPSecure = 'ssl';
+        // $mail->Port     = 465;
+
+        // $mail->setFrom('smpnwadaslintang2@gamil.com', 'Mail');
+        // $mail->addReplyTo('smpnwadaslintang2@gamil.com', 'Mail');
+        // $mail->addAddress($email);
+        // $mail->isHTML(true);
+
+        // $mailContent = "<h1>Send HTML Email using SMTP in CodeIgniter</h1>
+        // <p>This is a test email sending using SMTP mail server with PHPMailer.</p>";;
+        // $mail->Body = $mailContent;
+
+
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'localhost',
+            'smtp_pass' => '',
+            'mailtype' => 'html',
+            'charset' => 'iso-8859-1'
+        );
+        // $email = $this->input->post('email');
+        // $email_saya = 'smpnwadaslintang2@gamil.com';
+        // $judul = $this->input->post('judul');
+        // $isi = $this->input->post('pesan');
+
+        //$this->load->library('email', $config);
+        //$this->email->initialize($config);
+        $this->load->library('email');
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+        $this->email->from($email, 'user');
+        $this->email->to($email_saya);
+        $this->email->subject($judul);
+        $this->email->message($isi);
+
+        if (!$email->send()) {
+            show_error($this->email->print_debugger());
+        } else {
+            echo 'Success to send email';
+        }
+    }
 }
