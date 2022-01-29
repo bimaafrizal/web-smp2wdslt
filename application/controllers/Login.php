@@ -123,7 +123,8 @@ class Login extends CI_Controller
 
     public function berita($id)
     {
-        $ambilData = $this->LoginModel->ambil_data_berita_id($id);
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->LoginModel->ambil_data_berita_id($id_decrypt);
         if ($ambilData) {
             $data = array(
                 'id_berita' => $ambilData->id_berita,

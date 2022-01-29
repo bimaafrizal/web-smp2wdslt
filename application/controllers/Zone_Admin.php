@@ -59,7 +59,8 @@ class Zone_Admin extends CI_Controller
     }
     public function edit_kategori($id)
     {
-        $ambilData = $this->Admin->ambil_data_kategori_id($id);
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->Admin->ambil_data_kategori_id($id_decrypt);
 
         if ($ambilData) {
             $data = array(
@@ -74,6 +75,7 @@ class Zone_Admin extends CI_Controller
     }
     public function proses_edit_kategori($id)
     {
+        $id_encrypt = encrypt_url($id);
         $nama_kategori = $this->input->post('namaKategori');
 
 
@@ -84,7 +86,7 @@ class Zone_Admin extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> ' . validation_errors() . '</div>');
-            redirect('Zone_Admin/edit_kategori/' . $id);
+            redirect('Zone_Admin/edit_kategori/' . $id_encrypt);
         } else {
             $data = [
                 'nama_kategori' => $nama_kategori
@@ -97,7 +99,8 @@ class Zone_Admin extends CI_Controller
 
     function hapus_kategori($id)
     {
-        $this->Admin->delete_kategori($id);
+        $id_decrypt = decrypt_url($id);
+        $this->Admin->delete_kategori($id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Kategori berhasil dihapus</div>');
         redirect('Zone_Admin/kategori');
     }
@@ -200,7 +203,8 @@ class Zone_Admin extends CI_Controller
     }
     public function edit_berita($id)
     {
-        $ambilData = $this->Admin->ambil_data_berita_id($id);
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->Admin->ambil_data_berita_id($id_decrypt);
         if ($ambilData) {
             $data = array(
                 'id_berita' => $ambilData->id_berita,
@@ -216,9 +220,13 @@ class Zone_Admin extends CI_Controller
         $this->load->view('admin/berita_edit', $data);
         $this->load->view('SUadmin/Nav/footer');
     }
+
     public function proses_edit_berita($id_berita)
     {
+        $id_encrypt = encrypt_url($id_berita);
         $id = array('id_berita' => $id_berita);
+        // var_dump($id);
+        // die;
         $judul = $this->input->post('judul');
         $isi_berita = $this->input->post('isi_berita');
         $kategori = $this->input->post('kategori');
@@ -267,7 +275,7 @@ class Zone_Admin extends CI_Controller
                 redirect('Zone_Admin/berita');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
-                redirect('Zone_Admin/edit_berita/' . $id_berita);
+                redirect('Zone_Admin/edit_berita/' . $id_encrypt);
             }
         } else if ($judul != '' && $isi_berita != '' && $cover == '') {
             $ambilData = $this->db->get_where('berita', ['id_berita' => $id_berita])->row_array();
@@ -287,18 +295,20 @@ class Zone_Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form wajib diisi(kecuali gambar cover)
             </div>');
-            redirect('Zone_Admin/edit_berita/' . $id_berita);
+            redirect('Zone_Admin/edit_berita/' . $id_encrypt);
         }
     }
 
     public function hapus_berita($id)
     {
-        $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
+        $id_decrypt = decrypt_url($id);
+
+        $ambilData = $this->db->get_where('berita', ['id_berita' => $id_decrypt])->row_array();
         $old_image =  $ambilData['cover_berita'];
         if ($old_image) {
             unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
         }
-        $this->Admin->delete_berita($id);
+        $this->Admin->delete_berita($id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil dihapus </div>');
         redirect('Zone_Admin/berita');
     }
@@ -414,7 +424,8 @@ class Zone_Admin extends CI_Controller
 
     public function edit_guru($id)
     {
-        $ambilData = $this->Admin->ambil_data_guru_id($id);
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->Admin->ambil_data_guru_id($id_decrypt);
 
         if ($ambilData) {
             $data = array(
@@ -441,6 +452,7 @@ class Zone_Admin extends CI_Controller
         $email = $this->input->post('email');
         $gambar = $_FILES['image']['name'];
         $id = $this->input->post('id_guru');
+        $id_encrypt = encrypt_url($id);
 
         if (($nama_guru != '') && ($nip != '') && ($alamat != '') && ($email != '') && ($gambar != '')) {
             $sql = $this->db->query("SELECT email FROM guru where email = '$email'");
@@ -497,23 +509,27 @@ class Zone_Admin extends CI_Controller
             $this->db->set('foto_guru', $old_image);
             $this->db->where('id_guru', $id);
             $this->db->update('guru');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data berhasil diedit
+            </div>');
             redirect('Zone_Admin/guru');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form harus diisi
             </div>');
-            redirect('Zone_Admin/edit_guru/' . $id);
+            redirect('Zone_Admin/edit_guru/' . $id_encrypt);
         }
     }
 
     public function hapus_guru($id)
     {
-        $ambilData = $this->db->get_where('guru', ['id_guru' => $id])->row_array();
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->db->get_where('guru', ['id_guru' => $id_decrypt])->row_array();
         $old_image =  $ambilData['foto_guru'];
         if ($old_image) {
             unlink(FCPATH . './assets/imagesData/fotoGuru/' . $old_image);
         }
-        $this->Admin->delete_guru($id);
+        $this->Admin->delete_guru($id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         Data berhasil dihapus
       </div>');
@@ -621,7 +637,9 @@ class Zone_Admin extends CI_Controller
 
     public function edit_siswa($id)
     {
-        $ambilData = $this->Admin->ambil_data_siswa_id($id);
+
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->Admin->ambil_data_siswa_id($id_decrypt);
 
         if ($ambilData) {
             $data = array(
@@ -647,6 +665,7 @@ class Zone_Admin extends CI_Controller
         $tahun_masuk = $this->input->post('tahun_masuk');
         $gambar = $_FILES['image']['name'];
         $id = $this->input->post('id_siswa');
+        $id_encrypt = encrypt_url($id);
 
         if (($nama_siswa != '') && ($alamat != '') && ($prestasi != '') && ($tahun_masuk != '') && ($gambar != '')) {
             $this->db->set('nama_siswa', $nama_siswa);
@@ -698,18 +717,19 @@ class Zone_Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form harus diisi
             </div>');
-            redirect('Zone_Admin/edit_siswa/' . $id);
+            redirect('Zone_Admin/edit_siswa/' . $id_encrypt);
         }
     }
 
     public function hapus_siswa($id)
     {
-        $ambilData = $this->db->get_where('siswa', ['id_siswa' => $id])->row_array();
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->db->get_where('siswa', ['id_siswa' => $id_decrypt])->row_array();
         $old_image =  $ambilData['foto_siswa'];
         if ($old_image) {
             unlink(FCPATH . './assets/imagesData/fotoSiswa/' . $old_image);
         }
-        $this->Admin->delete_siswa($id);
+        $this->Admin->delete_siswa($id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         Semua form harus diisi
         </div>');

@@ -108,8 +108,8 @@ if ($this->session->userdata('peran') == 2) { ?>
                                     <div class="col-3 themed-grid-col text-wrap"> <?php
                                                                                     if (strlen($data->isi_berita) <= 500) {
                                                                                         echo $data->isi_berita;
-                                                                                    } else if(($data->isi_berita) > 500){
-                                                                                        echo substr($data->isi_berita, 0, 500).".....";
+                                                                                    } else if (($data->isi_berita) > 500) {
+                                                                                        echo substr($data->isi_berita, 0, 500) . ".....";
                                                                                     }
                                                                                     ?> </div>
 
@@ -123,9 +123,10 @@ if ($this->session->userdata('peran') == 2) { ?>
                                                                                     ?> </div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->user; ?></div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->kategori; ?></div>
+                                    <?php $id_enkrip = encrypt_url($data->id_berita); ?>
                                     <div class="col-1 themed-grid-col">
-                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_berita/' . $data->id_berita) ?>" role="button">Edit</a>
-                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_berita/' . $data->id_berita) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
+                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_berita/' . $id_enkrip) ?>" role="button">Edit</a>
+                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_berita/' . $id_enkrip) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
                                     </div>
                                 </div>
                             <?php } ?>

@@ -214,14 +214,18 @@ https://www.tooplate.com/view/2119-gymso-fitness
                                             }
                                             ?>
                                             <br>
-
-                                            <a href=" <?= base_url('Login/berita/' . $data->id_berita) ?> " class="btn btn-primary">Baca Selengkapnya</a>
+                                            <?php $id_enkrip = encrypt_url($data->id_berita); ?>
+                                            <a href=" <?= base_url('Login/berita/' . $id_enkrip) ?> " class="btn btn-primary">Baca Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="col-lg-12 col-12 text-center mb-5 mt-5">
+                            <!-- <h2>Berita Terkini</h2> -->
+                            <a href="<?= base_url('Login/tampil_semua_berita') ?>" data-aos="fade-up" data-aos-delay="200" type="button" class="btn btn-success">Lihat Semua</a>
+                        </div>
                     <?php }
                 } else { ?>
                     <div class="col-lg-12 col-12 text-center mb-5">
@@ -229,10 +233,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     </div>
                 <?php } ?>
 
-                <div class="col-lg-12 col-12 text-center mb-5 mt-5">
-                    <!-- <h2>Berita Terkini</h2> -->
-                    <a href="<?= base_url('Login/tampil_semua_berita') ?>" data-aos="fade-up" data-aos-delay="200" type="button" class="btn btn-success">Lihat Semua</a>
-                </div>
             </div>
         </div>
     </section>

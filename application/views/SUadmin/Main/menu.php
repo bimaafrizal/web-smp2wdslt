@@ -99,8 +99,9 @@ if ($this->session->userdata('peran') == 1) { ?>
                                                                                         echo "Admin";
                                                                                     }
                                                                                     ?> </div>
+                                    <?php $id_enkrip = encrypt_url($data->id_menu); ?>
                                     <div class="col-3 themed-grid-col">
-                                        <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_menu/' . $data->id_menu) ?>" role="button">Edit</a>
+                                        <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_menu/' . $id_enkrip) ?>" role="button">Edit</a>
                                     </div>
                                 </div>
 

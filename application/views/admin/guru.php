@@ -122,9 +122,10 @@ if ($this->session->userdata('peran') == 2) { ?>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->nip; ?></div>
                                     <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?> </div>
                                     <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->email; ?></div>
+                                    <?php $id_encrypt = encrypt_url($data->id_guru); ?>
                                     <div class="col-2 themed-grid-col">
-                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $data->id_guru) ?>" role="button">Edit</a>
-                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $data->id_guru) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
+                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_guru/' . $id_encrypt) ?>" role="button">Edit</a>
+                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_guru/' . $id_encrypt) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
                                     </div>
                                 </div>
                             <?php } ?>

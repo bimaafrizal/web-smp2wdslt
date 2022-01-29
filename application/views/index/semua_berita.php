@@ -140,8 +140,9 @@ https://www.tooplate.com/view/2119-gymso-fitness
                                                         echo substr($data->isi_berita, 0, 300) . ".....";
                                                     }
                                                     ?>
+                                                    <?php $id_enkrip = encrypt_url($data->id_berita); ?>
                                                     <br>
-                                                    <a href=" <?= base_url('Login/berita/' . $data->id_berita) ?> " class="btn btn-primary">Baca Selengkapnya</a>
+                                                    <a href=" <?= base_url('Login/berita/' . $id_enkrip) ?> " class="btn btn-primary">Baca Selengkapnya</a>
                                                 </div>
                                             </div>
                                         </div>

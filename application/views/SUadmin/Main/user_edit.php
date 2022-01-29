@@ -57,7 +57,7 @@ if ($this->session->userdata('peran') == 1) { ?>
                             } ?>
                         </div>
                         <!-- /.card-body -->
-
+                        <input type="hidden" name="id_user" id="id_user" value="<?php echo $id_user; ?>" />
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </div>

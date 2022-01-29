@@ -1,9 +1,11 @@
 <?php if ($this->session->userdata('peran') == 2) {
     redirect(base_url('Zone_Admin/welcome'));
 }
+
 if (empty($this->session->userdata('peran'))) {
     redirect(base_url('login/index_login'));
 }
+
 if ($this->session->userdata('peran') == 1) { ?>
 
     <!doctype html>
@@ -119,9 +121,10 @@ if ($this->session->userdata('peran') == 1) { ?>
                                                                                     ?> </div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->user; ?></div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->kategori; ?></div>
+                                    <?php $id_enkrip = encrypt_url($data->id_berita); ?>
                                     <div class="col-1 themed-grid-col">
-                                        <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_berita/' . $data->id_berita) ?>" role="button">Edit</a>
-                                        <a class="btn btn-danger" href="<?= base_url('Zone_SUAdmin/hapus_berita/' . $data->id_berita) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
+                                        <a class="btn btn-warning" href="<?= base_url('Zone_SUAdmin/edit_berita/' . $id_enkrip) ?>" role="button">Edit</a>
+                                        <a class="btn btn-danger" href="<?= base_url('Zone_SUAdmin/hapus_berita/' . $id_enkrip) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data guru?')">Hapus</a>
                                     </div>
                                 </div>
                             <?php } ?>

@@ -15,7 +15,6 @@ class Zone_SUAdmin extends CI_Controller
     }
     public function user()
     {
-
         $data = $this->SUAdmin->ambil_data_user();
         $arrayData = array(
             'datas' => $data
@@ -83,12 +82,13 @@ class Zone_SUAdmin extends CI_Controller
 
     public function aktifkan($id)
     {
+        $id_decrypt = decrypt_url($id);
         $is_aktif = "1";
 
         $data = [
             'is_aktif' => $is_aktif
         ];
-        $this->SUAdmin->aktifkan_user($data, $id);
+        $this->SUAdmin->aktifkan_user($data, $id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         User berhasil diaktifkan
       </div>');
@@ -96,12 +96,13 @@ class Zone_SUAdmin extends CI_Controller
     }
     public function nonAktifkan($id)
     {
+        $id_decrypt = decrypt_url($id);
         $is_aktif = "0";
 
         $data = [
             'is_aktif' => $is_aktif
         ];
-        $this->SUAdmin->aktifkan_user($data, $id);
+        $this->SUAdmin->aktifkan_user($data, $id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         User berhasil dinonaktifkan
       </div>');
@@ -110,17 +111,20 @@ class Zone_SUAdmin extends CI_Controller
 
     public function hapus_user($id)
     {
-        $this->SUAdmin->delete_user($id);
+        $id_decrypt = decrypt_url($id);
+        $this->SUAdmin->delete_user($id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         User berhasil dihapus
-      </div>');
+        </div>');
         redirect('Zone_SUAdmin/user');
     }
 
     public function edit_user($id)
     {
-        $ambilData = $this->SUAdmin->ambil_data_user_id($id);
-
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->SUAdmin->ambil_data_user_id($id_decrypt);
+        // var_dump($ambilData);
+        // die;
         if ($ambilData) {
             $data = array(
                 'id_user' => $ambilData->id_user,
@@ -138,6 +142,7 @@ class Zone_SUAdmin extends CI_Controller
 
     public function proses_edit_user($id)
     {
+        $id_encrypt = encrypt_url($id);
         $user = $this->input->post('user');
         $namaPengguna = $this->input->post('namaPengguna');
         $peran = $this->input->post('peran');
@@ -154,7 +159,7 @@ class Zone_SUAdmin extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Email sudah digunakan
               </div>');
-                redirect('Zone_SUAdmin/edit_user/' . $id);
+                redirect('Zone_SUAdmin/edit_user/' . $id_encrypt);
             } else {
                 if ($pass == '') {
                     $data = [
@@ -164,6 +169,8 @@ class Zone_SUAdmin extends CI_Controller
                         'is_aktif' => $is_aktif,
                         'peran' => $peran
                     ];
+                    // var_dump($data);
+                    // die;
 
                     $this->SUAdmin->edit_user($data);
                     // var_dump($data);
@@ -187,7 +194,7 @@ class Zone_SUAdmin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Semua form wajib diisi(kecuali password)
               </div>');
-            redirect('Zone_SUAdmin/edit_user/' . $id);
+            redirect('Zone_SUAdmin/edit_user/' . $id_encrypt);
         }
     }
 
@@ -206,7 +213,8 @@ class Zone_SUAdmin extends CI_Controller
 
     public function edit_menu($id)
     {
-        $ambilData = $this->SUAdmin->ambil_data_menu_id($id);
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->SUAdmin->ambil_data_menu_id($id_decrypt);
 
         if ($ambilData) {
             $data = array(
@@ -225,6 +233,9 @@ class Zone_SUAdmin extends CI_Controller
     }
     public function proses_edit_menu($id)
     {
+        $id_data = array('id_menu' => $id);
+        $id_encrypt = encrypt_url($id);
+        // $id_encrypt = encrypt_url($id);
         $nama_menu = $this->input->post('nama_menu');
         $icon = $this->input->post('icon');
 
@@ -235,7 +246,7 @@ class Zone_SUAdmin extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 Nama menu sudah digunakan
               </div>');
-                redirect('Zone_SUAdmin/edit_menu/' . $id);
+                redirect('Zone_SUAdmin/edit_menu/' . $id_encrypt);
             } else {
                 $data = [
                     'nama_menu' => $nama_menu,
@@ -243,7 +254,7 @@ class Zone_SUAdmin extends CI_Controller
                 ];
                 // var_dump($data);
                 // die;
-                $this->SUAdmin->edit_menu($data);
+                $this->SUAdmin->edit_menu($data, $id_data);
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Menu berhasil diubah
               </div>');
@@ -253,7 +264,7 @@ class Zone_SUAdmin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form wajib diisi
           </div>');
-            redirect('Zone_SUAdmin/edit_menu/' . $id);
+            redirect('Zone_SUAdmin/edit_menu/' . $id_encrypt);
         }
     }
 
@@ -304,7 +315,8 @@ class Zone_SUAdmin extends CI_Controller
 
     public function edit_berita($id)
     {
-        $ambilData = $this->SUAdmin->ambil_data_berita_id($id);
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->SUAdmin->ambil_data_berita_id($id_decrypt);
         if ($ambilData) {
             $data = array(
                 'id_berita' => $ambilData->id_berita,
@@ -322,6 +334,7 @@ class Zone_SUAdmin extends CI_Controller
     }
     public function proses_edit_berita($id_berita)
     {
+        $id_encrypt = encrypt_url($id_berita);
         $id = array('id_berita' => $id_berita);
         $judul = $this->input->post('judul');
         $isi_berita = $this->input->post('isi_berita');
@@ -371,7 +384,7 @@ class Zone_SUAdmin extends CI_Controller
                 redirect('Zone_SUAdmin/berita');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
-                redirect('Zone_SUAdmin/edit_berita/' . $id_berita);
+                redirect('Zone_SUAdmin/edit_berita/' . $id_encrypt);
             }
         } else if ($judul != '' && $isi_berita != '' && $cover == '') {
             $ambilData = $this->db->get_where('berita', ['id_berita' => $id_berita])->row_array();
@@ -384,25 +397,26 @@ class Zone_SUAdmin extends CI_Controller
                 'cover_berita' => $old_image,
                 'kategori' => $kategori
             ];
-            $this->Admin->edit_berita($id, $data);
+            $this->SUAdmin->edit_berita($id, $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil diedit </div>');
             redirect('Zone_SUAdmin/berita');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Semua form wajib diisi(kecuali gambar cover)
             </div>');
-            redirect('Zone_SUAdmin/edit_berita/' . $id_berita);
+            redirect('Zone_SUAdmin/edit_berita/' . $id_encrypt);
         }
     }
 
     public function hapus_berita($id)
     {
-        $ambilData = $this->db->get_where('berita', ['id_berita' => $id])->row_array();
+        $id_decrypt = decrypt_url($id);
+        $ambilData = $this->db->get_where('berita', ['id_berita' => $id_decrypt])->row_array();
         $old_image =  $ambilData['cover_berita'];
         if ($old_image) {
             unlink(FCPATH . './assets/imagesData/cover/' . $old_image);
         }
-        $this->SUAdmin->delete_berita($id);
+        $this->SUAdmin->delete_berita($id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil dihapus </div>');
         redirect('Zone_SUAdmin/berita');
     }

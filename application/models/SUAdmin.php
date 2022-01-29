@@ -36,6 +36,8 @@ class SUAdmin extends CI_Model
     public function edit_user($data)
     {
         $id = array('id_user' => $this->input->post('id_user'));
+        // var_dump($id);
+        // die;
         return $this->db->update($this->table_user, $data, $id);
     }
 
@@ -49,9 +51,9 @@ class SUAdmin extends CI_Model
         $this->db->where('id_menu', $id);
         return $this->db->get($this->table_menu)->row();
     }
-    public function edit_menu($data)
+    public function edit_menu($data, $id)
     {
-        $id = array('id_menu' => $this->input->post('id_menu'));
+        //$this->db->where('id_menu', $id);
         return $this->db->update($this->table_menu, $data, $id);
     }
     public function ambil_data_berita($keyword, $limit, $start)

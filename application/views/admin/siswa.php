@@ -107,9 +107,10 @@ if ($this->session->userdata('peran') == 2) { ?>
                                     <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->alamat; ?></div>
                                     <div class="col-2 themed-grid-col text-wrap"> <?php echo $data->prestasi; ?> </div>
                                     <div class="col-1 themed-grid-col text-wrap"> <?php echo $data->tahun_masuk; ?></div>
+                                    <?php $id_encrypt = encrypt_url($data->id_siswa); ?>
                                     <div class="col-2 themed-grid-col">
-                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_siswa/' . $data->id_siswa) ?>" role="button">Edit</a>
-                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_siswa/' . $data->id_siswa) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data siswa?')">Hapus</a>
+                                        <a class="btn btn-warning" href="<?= base_url('Zone_Admin/edit_siswa/' . $id_encrypt) ?>" role="button">Edit</a>
+                                        <a class="btn btn-danger" href="<?= base_url('Zone_Admin/hapus_siswa/' . $id_encrypt) ?>" role="button" onclick="return confirm('Apakah anda yakin ingin menghapus data siswa?')">Hapus</a>
                                     </div>
                                 </div>
 
