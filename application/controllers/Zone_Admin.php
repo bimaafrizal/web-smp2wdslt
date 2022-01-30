@@ -5,6 +5,7 @@ class Zone_Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin');
+        $this->load->library('upload');
     }
 
     public function welcome()
@@ -311,6 +312,77 @@ class Zone_Admin extends CI_Controller
         $this->Admin->delete_berita($id_decrypt);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"> Data berhasil dihapus </div>');
         redirect('Zone_Admin/berita');
+    }
+
+    public function upload_gambar_summernote()
+    {
+        if (isset($_FILES["image"]["name"])) {
+            $config['upload_path'] = './assets/imagesData/berita';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload('image')) {
+                $this->upload->display_errors();
+                return FALSE;
+            } else {
+                $data = $this->upload->data();
+                //Compress Image
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './assets/imagesData/berita/' . $data['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = TRUE;
+                $config['quality'] = '60%';
+                $config['width'] = 800;
+                $config['height'] = 800;
+                $config['new_image'] = './assets/imagesData/berita' . $data['file_name'];
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+                echo base_url() . './assets/imagesData/berita' . $data['file_name'];
+            }
+        }
+        // if (isset($_FILES['image']['name'])) {
+        //     $config['upload_path'] = './assets/imagesData/berita';
+        //     $config['allowed_types'] = 'jpg|png|jpeg';
+        //     $config['max_size'] = 50000;
+        //     $config['max_width']  = 51280;
+        //     $config['max_height']  = 51280;
+        //     $config['file_name'] = $_FILES['image']['name'];
+        //     $this->load->library('upload', $config);
+        //     if (!$this->upload->do_upload('image')) {
+        //         $this->upload->display_errors();
+        //         return false;
+        //         //$this->upload->do_upload('image');
+        //         //$this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert"> Data harus terisi dengan benar </div>');
+        //         //redirect('Zone_Admin/tambah_berita');
+        //     } else {
+        //         $data = $this->upload->data();
+        //         echo base_url().'./assets/imagesData/berita/'.$data['file_name'];
+        //         //return $data;
+        //     }
+        // }
+        // $this->load->library('upload', $config);
+
+        // var_dump($config);
+        // die;
+        // $uploadData = $this->upload->data();
+        // $filename = $uploadData['file_name'];
+        // $data = [
+        //     'judul_berita' => $judul,
+        //     'isi_berita' => $isi_berita,
+        //     'tanggal' => time(),
+        //     'tanggal_edit' => 0,
+        //     'user' => $this->session->userdata('nama_pengguna'),
+        //     'cover_berita' => $filename,
+        //     'kategori' => $kategori
+        // ];
+    }
+
+    function delete_img_summernote()
+    {
+        $src = $this->input->post('src');
+        $file_name = str_replace(base_url(), '', $src);
+        if (unlink($file_name)) {
+            echo 'File Delete Successfully';
+        }
     }
 
     public function guru()

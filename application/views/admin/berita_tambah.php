@@ -76,9 +76,59 @@
 <script text="text/javascript">
     CKEDITOR.replace('isi_berita', {
         height: 600,
-        filebrowserImageBrowseUrl: "<?= base_url('assets/kcfinder/browse.php'); ?>"
+        filebrowserImageBrowseUrl: "<?= base_url('Upload/upload_img'); ?>"
     });
 </script>
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#isi_berita').summernote({
+            height: "300px",
+            callbacks: {
+                onImageUpload: function(image) {
+                    uploadImage(image[0]);
+                },
+                onMediaDelete: function(target) {
+                    deleteImage(target[0].src);
+                }
+            }
+        });
+
+        function uploadImage(image) {
+            var data = new FormData();
+            data.append("image", image);
+            $.ajax({
+                url: "<?php echo site_url('Zone_Admin/upload_gambar_summernote') ?>",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                type: "POST",
+                success: function(url) {
+                    $('#isi_berita').summernote("insertImage", url);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function deleteImage(src) {
+            $.ajax({
+                data: {
+                    src: src
+                },
+                type: "POST",
+                url: "<?php echo site_url('Zone_Admin/delete_img_summernote') ?>",
+                cache: false,
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+
+    });
+</script> -->
 
 <?php } else {
         redirect(base_url('login/index_login'));
