@@ -14,7 +14,7 @@
                     <i class="fa fa-envelope-o mr-1"></i>
                     <a href="#">spendawali@gmail.com</a>
                 </p>
-                <p><i class="fa fa-phone mr-1"></i> 010-020-0840</p>
+                <p><i class="fa fa-youtube mr-1"></i> SMP N 2 Wadaslintang</p>
             </div>
 
         </div>
